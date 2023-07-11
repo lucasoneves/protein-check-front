@@ -1,3 +1,5 @@
+import { Container } from '@/components/Container';
+
 export default function RootLayout({
   children,
 }: {
@@ -6,7 +8,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <Container>
+          {children}
+        </Container>
       </body>
     </html>
   );
