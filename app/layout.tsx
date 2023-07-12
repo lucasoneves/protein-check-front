@@ -1,4 +1,5 @@
 import { Container } from '@/components/Container';
+import styles from './(auth)/signin/SignIn.module.scss'
 
 export default function RootLayout({
   children,
@@ -9,7 +10,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Container>
-          {children}
+          <div className={styles['wrapper']}>
+            {children}
+          </div>
         </Container>
       </body>
     </html>

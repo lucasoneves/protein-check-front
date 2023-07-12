@@ -1,20 +1,28 @@
-import styles from './SignIn.module.css'
+"use client";
+
+import { Input } from "@/components/Input/index";
+import { Button } from "@/components/Button/index";
+import styles from "./SignIn.module.scss";
+import Link from "next/link";
 
 export default function SignInPage() {
   return (
-    <div className={styles['signin']}>
-      <h2>Olá!</h2>
-      <p>Entre com seu email e senha para acessar a plataforma</p>
+    <div className={styles["signin"]}>
+      <header>
+        <h2>Olá!</h2>
+        <p>Entre com seu email e senha para acessar a plataforma</p>
+      </header>
       <form action="">
         <label htmlFor="email">
           Email
-          <input type="email" />
+          <Input inputType="email" />
         </label>
         <label htmlFor="password">
           Senha
-          <input type="password" />
+          <Input inputType="password" />
         </label>
-        <button type="submit">entrar</button>
+        <Link className={styles['link']} href="/recoverpassword">Esqueci minha senha</Link>
+        <Button>Entrar</Button>
       </form>
     </div>
   );
