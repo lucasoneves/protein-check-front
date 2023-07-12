@@ -1,0 +1,42 @@
+.signin {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  max-width: 640px;
+  width: 100%;
+
+  header {
+    font-size: 30px;
+
+    p {
+      margin: 20px 0;
+      font-size: 16px;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 10px;
+  }
+
+  input {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+  }
+  
+}
+
+.wrapper {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
