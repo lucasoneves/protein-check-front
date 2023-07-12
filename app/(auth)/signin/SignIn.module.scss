@@ -4,7 +4,7 @@
   border-radius: 12px;
   box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.3);
   font-size: 14px;
-  max-width: 640px;
+  max-width: 500px;
   width: 100%;
 
   header {
@@ -13,23 +13,35 @@
     p {
       margin: 20px 0;
       font-size: 16px;
+      font-weight: 300;
     }
   }
 
   form {
     display: flex;
     flex-direction: column;
+
+    label {
+      margin-top: 10px;
+    }
+  
+    input {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+    }
+    button {
+      margin-top: 15px;
+    }
+
+    .link {
+      color: cadetblue;
+      display: block;
+      margin: 10px 0;
+      font-size: 12px;
+    }
   }
 
-  label {
-    margin-top: 10px;
-  }
-
-  input {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
-  }
   
 }
 

@@ -1,5 +1,9 @@
-import { Input } from "../../../components/Input/index";
+"use client";
+
+import { Input } from "@/components/Input/index";
+import { Button } from "@/components/Button/index";
 import styles from "./SignIn.module.scss";
+import Link from "next/link";
 
 export default function SignInPage() {
   return (
@@ -17,7 +21,8 @@ export default function SignInPage() {
           Senha
           <Input inputType="password" />
         </label>
-        <button type="submit">entrar</button>
+        <Link className={styles['link']} href="/recoverpassword">Esqueci minha senha</Link>
+        <Button>Entrar</Button>
       </form>
     </div>
   );
