@@ -1,12 +1,13 @@
 .button {
   padding: 10px;
   text-align: center;
-  background-color: cadetblue;
+  background-color: var(--savana);
   border-radius: 6px;
   border: 0;
   outline: 0;
-  color: #fff;
+  color: var(--fevora);
   min-height: 45px;
+  font-weight: bold;
 
   &:hover {
     opacity: .9;

@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/Input/index";
 import { Button } from "@/components/Button/index";
-import styles from "./SignIn.module.scss";
+import styles from "@/app/(auth)/Auth.module.scss";
 import Link from "next/link";
 
 export default function SignInPage() {
@@ -24,6 +24,7 @@ export default function SignInPage() {
         <Link className={styles['link']} href="/recoverpassword">Esqueci minha senha</Link>
         <Button>Entrar</Button>
       </form>
+      <p className={styles['signup-link']}>Não tem uma conta? <Link href="/signup">Cadastre-se</Link></p>
     </div>
   );
 }

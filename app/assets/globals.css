@@ -3,3 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
+@import "./pallete.css";
+
+.logo {
+  color: var(--fevora);
+  font-size: 30px;
+  margin: 20px 0;
+  font-weight: bold;
+  letter-spacing: -4px;
+}

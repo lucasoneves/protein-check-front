@@ -35,11 +35,11 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-	background: #dddddd;
+	background: #222;
 	height: 100vh;
 }
 ol, ul {
-	list-style: none;
+	list-style: none;	
 }
 blockquote, q {
 	quotes: none;
