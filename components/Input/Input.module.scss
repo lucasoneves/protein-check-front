@@ -1,6 +1,11 @@
 .input {
   padding: 10px;
   border-radius: 6px;
-  box-shadow: 0 0 5px rgb(211, 211, 211);
-  background-color: #f2f2f2;
+  background-color: #222;
+  border: 1px solid transparent;
+
+  &:focus {
+    outline: 0;
+    border: 1px solid #f1f1f1;
+  }
 }

@@ -1,5 +1,5 @@
 import { Container } from '@/components/Container';
-import styles from './(auth)/signin/SignIn.module.scss'
+import styles from '@/app/(auth)/Auth.module.scss';
 
 export default function RootLayout({
   children,

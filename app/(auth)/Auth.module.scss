@@ -1,11 +1,12 @@
 .signin {
-  background-color: #fff;
+  background-color: rgba(52,52,52, .5);
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.3);
   font-size: 14px;
   max-width: 500px;
   width: 100%;
+  color: var(--fevora);
 
   header {
     font-size: 30px;
@@ -35,7 +36,7 @@
     }
 
     .link {
-      color: cadetblue;
+      color: var(--fevora);
       display: block;
       margin: 10px 0;
       font-size: 12px;
@@ -51,4 +52,13 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+.signup-link {
+  margin-top: 34px;
+
+  a {
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }

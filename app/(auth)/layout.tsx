@@ -7,6 +7,7 @@ export default function AuthRootLayout({
 }) {
   return (
     <>
+      <h2 className="logo">protein check</h2>
       {children}
     </>
   );
