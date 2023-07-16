@@ -1,8 +1,7 @@
 "use client";
-
-import { Input } from "@/components/Input/index";
 import { Button } from "@/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
+import inputStyles from "@/components/Input/Input.module.scss";
 import Link from "next/link";
 
 export default function SignUpPage() {
@@ -15,15 +14,15 @@ export default function SignUpPage() {
       <form action="">
         <label htmlFor="username">
           Nome
-          <Input inputType="text" />
+          <input type="text" className={inputStyles['input']}/>
         </label>
         <label htmlFor="email">
           Email
-          <Input inputType="email" />
+          <input type="email" className={inputStyles['input']}/>
         </label>
         <label htmlFor="password">
           Senha
-          <Input inputType="password" />
+          <input type="password" className={inputStyles['input']}/>
         </label>
         <Button>Cadastrar</Button>
       </form>

@@ -1,8 +1,7 @@
 "use client";
-
-import { Input } from "@/components/Input/index";
 import { Button } from "@/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
+import inputStyles from '@/components/Input/Input.module.scss';
 import Link from "next/link";
 
 export default function RecoverPassword() {
@@ -15,7 +14,7 @@ export default function RecoverPassword() {
       <form action="">
         <label htmlFor="email">
           Email
-          <Input inputType="email" />
+          <input className={inputStyles['input']} type="email" />
         </label>
         <Button>Enviar</Button>
       </form>
