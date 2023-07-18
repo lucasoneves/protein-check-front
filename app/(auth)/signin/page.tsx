@@ -4,11 +4,12 @@ import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyle from "@/components/Input/Input.module.scss";
 import Link from "next/link";
 import { useState } from "react";
+import { ErrorTypes } from "@/lib/types";
 
 export default function SignInPage() {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [error, setError] = useState([]);
+  const [error, setError] = useState<ErrorTypes[]>([]);
 
   function saveUserEmail(e) {
     setUserEmail(e.target.value);
@@ -20,7 +21,10 @@ export default function SignInPage() {
 
   function handleValidateEmail() {
     if (!userEmail) {
-      setError((prevState) => [...prevState, { error: "previous state"}])
+      setError((prevState) => [
+        ...prevState,
+        { message: "Email is required" }
+      ]);
     }
   }
 
