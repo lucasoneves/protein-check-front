@@ -3,39 +3,81 @@ import { Button } from "@/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyle from "@/components/Input/Input.module.scss";
 import Link from "next/link";
-import { useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { ErrorTypes } from "@/lib/types";
+import { ErrorBox } from "@/components/ErrorBox";
+import { validateEmail } from "@/lib/validateEmail";
 
 export default function SignInPage() {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [error, setError] = useState<ErrorTypes[]>([]);
+  const [userEmail, setUserEmail] = useState<String>("");
+  const [userPassword, setUserPassword] = useState<String>("");
+  const [formError, setFormError] = useState<ErrorTypes[]>([]);
 
-  function saveUserEmail(e) {
+  const formIsValid = useCallback(() => {
+    if (formError.length > 0) {
+      return false;
+    } else {
+      handleLoginUser();
+    }
+    return true;
+  }, [formError]);
+
+  useEffect(() => {
+    formIsValid();
+  }, [formError, formIsValid]);
+
+  function saveUserEmail(e: { target: { value: SetStateAction<String>; }; }) {
     setUserEmail(e.target.value);
+    cleanErrorMessages();
   }
 
-  function saveUserPassword(e) {
+  function saveUserPassword(e: { target: { value: SetStateAction<String>; }; }) {
     setUserPassword(e.target.value);
+    cleanErrorMessages();
   }
 
   function handleValidateEmail() {
     if (!userEmail) {
-      setError((prevState) => [
+      setFormError((prevState) => [
         ...prevState,
-        { message: "Email is required" }
+        { message: "Preencha seu email", field: "email" },
       ]);
+      return false;
     }
+
+    if (!validateEmail(userEmail)) {
+      setFormError((prevState) => [
+        ...prevState,
+        { message: "Email inválido", field: "email"}
+      ])
+      return false;
+    }
+    return true;
   }
 
   function handleValidatePassword() {
+    
     if (!userPassword) {
-      alert("por favor, preecha o campo senha");
+      setFormError((prevState) => [
+        ...prevState,
+        { message: "Preencha a senha", field: "password" },
+      ]);
+      return false;
     }
+    return true;
   }
 
-  function submitLoginForm(e) {
+  function handleLoginUser() {
+    // Make http request to login user
+  }
+
+  function cleanErrorMessages() {
+    setFormError([]);
+  }
+
+  function submitLoginForm(e: { preventDefault: () => void; }) {
     e.preventDefault();
+    cleanErrorMessages();
     handleValidateEmail();
     handleValidatePassword();
   }
@@ -51,7 +93,7 @@ export default function SignInPage() {
           Email
           <input
             className={inputStyle["input"]}
-            type="email"
+            type="text"
             value={userEmail}
             onChange={saveUserEmail}
           />
@@ -65,7 +107,15 @@ export default function SignInPage() {
             onChange={saveUserPassword}
           />
         </label>
-        <pre>{error}</pre>
+        {formError.length ? (
+          <ErrorBox>
+            {formError.map((d) => {
+              return <p className="mb-2 last:mb-0 text-xs" key={d.message + Math.random()}>{d.message}</p>;
+            })}
+          </ErrorBox>
+        ) : (
+          ""
+        )}
         <Link className={styles["link"]} href="/recoverpassword">
           Esqueci minha senha
         </Link>
