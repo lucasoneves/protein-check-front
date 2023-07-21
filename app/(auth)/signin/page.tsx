@@ -7,24 +7,17 @@ import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { ErrorTypes } from "@/lib/types";
 import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
+import { signin } from '@/lib/api';
 
 export default function SignInPage() {
   const [userEmail, setUserEmail] = useState<String>("");
   const [userPassword, setUserPassword] = useState<String>("");
   const [formError, setFormError] = useState<ErrorTypes[]>([]);
-
-  const formIsValid = useCallback(() => {
-    if (formError.length > 0) {
-      return false;
-    } else {
-      handleLoginUser();
-    }
-    return true;
-  }, [formError]);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    formIsValid();
-  }, [formError, formIsValid]);
+    console.log(formError)
+  }, [formError])
 
   function saveUserEmail(e: { target: { value: SetStateAction<String>; }; }) {
     setUserEmail(e.target.value);
@@ -67,19 +60,25 @@ export default function SignInPage() {
     return true;
   }
 
-  function handleLoginUser() {
-    // Make http request to login user
+  async function handleLoginUser() {
+    if (handleValidateEmail() && handleValidatePassword()) {
+      
+      const req = await signin({
+        email: userEmail,
+        password: userPassword
+      })
+    }
+    return false;
   }
 
   function cleanErrorMessages() {
     setFormError([]);
   }
 
-  function submitLoginForm(e: { preventDefault: () => void; }) {
+  function checkValidityForm(e: { preventDefault: () => void; }) {
     e.preventDefault();
     cleanErrorMessages();
-    handleValidateEmail();
-    handleValidatePassword();
+    handleLoginUser()
   }
 
   return (
@@ -88,7 +87,7 @@ export default function SignInPage() {
         <h2>Olá!</h2>
         <p>Entre com seu email e senha para acessar a plataforma</p>
       </header>
-      <form action="" onSubmit={submitLoginForm}>
+      <form action="" onSubmit={checkValidityForm}>
         <label htmlFor="email">
           Email
           <input
@@ -119,7 +118,7 @@ export default function SignInPage() {
         <Link className={styles["link"]} href="/recoverpassword">
           Esqueci minha senha
         </Link>
-        <Button>Entrar</Button>
+        <Button disabled={loading}>{loading ? "Loading..." : "Entrar"}</Button>
       </form>
       <p className={styles["signup-link"]}>
         Não tem uma conta? <Link href="/signup">Cadastre-se</Link>
