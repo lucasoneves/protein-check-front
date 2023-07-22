@@ -62,11 +62,23 @@ export default function SignInPage() {
 
   async function handleLoginUser() {
     if (handleValidateEmail() && handleValidatePassword()) {
-      
-      const req = await signin({
-        email: userEmail,
-        password: userPassword
-      })
+      setLoading(true)
+      let req;
+      try { 
+        req = await signin({
+          email: userEmail,
+          password: userPassword
+        })
+        console.log(req)
+      } catch (error) {
+        console.error(error.response)
+        setFormError((prevState) =>[
+          ...prevState,
+          { message: error.message, field: "auth"}
+        ])
+      } finally {
+        setLoading(false)
+      }
     }
     return false;
   }
