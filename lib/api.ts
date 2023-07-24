@@ -28,10 +28,15 @@ export const register = async (user) => {
 };
 
 export const signin = async (user) => {
-  return fetcher({
-    url: "http://localhost:3001/signin",
-    method: "POST",
-    body: user,
-    json: false,
-  });
+  try {
+    return fetcher({
+      url: "http://localhost:3001/signin",
+      method: "POST",
+      body: user,
+      json: true,
+    });
+  } catch (error) {
+    // Handle the error (e.g., show an error message)
+    console.error(error);
+  }
 };

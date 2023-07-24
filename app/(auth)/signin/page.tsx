@@ -8,16 +8,17 @@ import { ErrorTypes } from "@/lib/types";
 import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
 import { signin } from '@/lib/api';
+import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
+
 
 export default function SignInPage() {
   const [userEmail, setUserEmail] = useState<String>("");
   const [userPassword, setUserPassword] = useState<String>("");
   const [formError, setFormError] = useState<ErrorTypes[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log(formError)
-  }, [formError])
+  
+  const router = useRouter()
 
   function saveUserEmail(e: { target: { value: SetStateAction<String>; }; }) {
     setUserEmail(e.target.value);
@@ -60,21 +61,29 @@ export default function SignInPage() {
     return true;
   }
 
+  async function redirectUser() {
+    router.push('/dashboard')
+  }
+
   async function handleLoginUser() {
     if (handleValidateEmail() && handleValidatePassword()) {
       setLoading(true)
-      let req;
       try { 
-        req = await signin({
+        const req = await signin({
           email: userEmail,
           password: userPassword
         })
-        console.log(req)
+
+        const data = await req.token;
+        Cookies.set('user', data)
+
+        await redirectUser()
+        
       } catch (error) {
-        console.error(error.response)
+        console.error(error)
         setFormError((prevState) =>[
           ...prevState,
-          { message: error.message, field: "auth"}
+          { message: "It was not possible to login, verify your info and try again", field: "auth"}
         ])
       } finally {
         setLoading(false)
