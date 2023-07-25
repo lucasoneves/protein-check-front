@@ -10,6 +10,7 @@ import { validateEmail } from "@/lib/validateEmail";
 import { signin } from '@/lib/api';
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
+import { validateField } from "@/lib/validateField";
 
 
 export default function SignInPage() {
@@ -31,7 +32,7 @@ export default function SignInPage() {
   }
 
   function handleValidateEmail() {
-    if (!userEmail) {
+    if (validateField(userEmail)) {
       setFormError((prevState) => [
         ...prevState,
         { message: "Preencha seu email", field: "email" },
@@ -51,7 +52,7 @@ export default function SignInPage() {
 
   function handleValidatePassword() {
     
-    if (!userPassword) {
+    if (!validateField(userPassword)) {
       setFormError((prevState) => [
         ...prevState,
         { message: "Preencha a senha", field: "password" },
