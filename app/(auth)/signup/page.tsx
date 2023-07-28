@@ -5,7 +5,7 @@ import inputStyles from "@/components/Input/Input.module.scss";
 import Link from "next/link";
 import { useState } from "react";
 import { ErrorTypes } from "@/lib/types";
-import { emailRequired, passwordRequired, userNameRequired, emailNotValid } from "@/lib/text";
+import { labelEmailRequired, labelPasswordRequired, labelUsernameRequired, labelEmailNotValid } from "@/lib/text";
 import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
 
@@ -27,18 +27,18 @@ export default function SignUpPage() {
 
   function validateForm() {
     if (!username) {
-      handleSetFormError(userNameRequired, "username");
+      handleSetFormError(labelUsernameRequired, "username");
     }
     if (!userEmail) {
-      handleSetFormError(emailRequired, "email");
+      handleSetFormError(labelEmailRequired, "email");
     }
 
     if (userEmail && !validateEmail(userEmail)) {
-      handleSetFormError(emailNotValid, "email");
+      handleSetFormError(labelEmailNotValid, "email");
     }
 
     if (!userPassword) {
-      handleSetFormError(passwordRequired, "password");
+      handleSetFormError(labelPasswordRequired, "password");
     }
   }
 

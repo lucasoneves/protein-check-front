@@ -10,7 +10,8 @@ import { validateEmail } from "@/lib/validateEmail";
 import { signin } from '@/lib/api';
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
-import { validateField } from "@/lib/validateField";
+import { labelEmailNotValid, labelEmailRequired, labelFormErrorLogin, labelPasswordRequired } from "@/lib/text";
+import { Toast } from "@/components/Toast";
 
 
 export default function SignInPage() {
@@ -32,10 +33,10 @@ export default function SignInPage() {
   }
 
   function handleValidateEmail() {
-    if (validateField(userEmail)) {
+    if (!userEmail) {
       setFormError((prevState) => [
         ...prevState,
-        { message: "Preencha seu email", field: "email" },
+        { message: labelEmailRequired, field: "email" },
       ]);
       return false;
     }
@@ -43,7 +44,7 @@ export default function SignInPage() {
     if (!validateEmail(userEmail)) {
       setFormError((prevState) => [
         ...prevState,
-        { message: "Email inválido", field: "email"}
+        { message: labelEmailNotValid, field: "email"}
       ])
       return false;
     }
@@ -52,10 +53,10 @@ export default function SignInPage() {
 
   function handleValidatePassword() {
     
-    if (!validateField(userPassword)) {
+    if (!userPassword) {
       setFormError((prevState) => [
         ...prevState,
-        { message: "Preencha a senha", field: "password" },
+        { message: labelPasswordRequired, field: "password" },
       ]);
       return false;
     }
@@ -84,7 +85,7 @@ export default function SignInPage() {
         console.error(error)
         setFormError((prevState) =>[
           ...prevState,
-          { message: "It was not possible to login, verify your info and try again", field: "auth"}
+          { message: labelFormErrorLogin, field: "auth"}
         ])
       } finally {
         setLoading(false)
@@ -129,11 +130,11 @@ export default function SignInPage() {
           />
         </label>
         {formError.length ? (
-          <ErrorBox>
+          <>
             {formError.map((d) => {
-              return <p className="mb-2 last:mb-0 text-xs" key={d.message + Math.random()}>{d.message}</p>;
+              return <Toast key={d.message}>{d.message}</Toast>;
             })}
-          </ErrorBox>
+          </>
         ) : (
           ""
         )}

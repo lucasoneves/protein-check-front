@@ -1,4 +1,5 @@
-export const emailRequired = "Preencha seu email";
-export const emailNotValid = "Email inválido";
-export const passwordRequired = "Preencha sua senha";
-export const userNameRequired = "Preencha seu nome de usuário(a)";
+export const labelEmailRequired = "Preencha seu email";
+export const labelEmailNotValid = "Email inválido";
+export const labelPasswordRequired = "Preencha sua senha";
+export const labelUsernameRequired = "Preencha seu nome de usuário(a)";
+export const labelFormErrorLogin = "It was not possible to login, verify your info and try again"
