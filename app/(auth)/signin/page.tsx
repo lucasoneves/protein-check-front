@@ -1,15 +1,14 @@
 "use client";
-import { Button } from "@/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyle from "@/components/Input/Input.module.scss";
 import Link from "next/link";
-import { SetStateAction, useCallback, useEffect, useState } from "react";
+import Cookies from 'js-cookie'
+import { Button } from "@/components/Button/index";
+import { SetStateAction, useState } from "react";
 import { ErrorTypes } from "@/lib/types";
-import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
 import { signin } from '@/lib/api';
-import { useRouter } from 'next/navigation'
-import Cookies from 'js-cookie'
+import { redirect, useRouter } from 'next/navigation'
 import { labelEmailNotValid, labelEmailRequired, labelFormErrorLogin, labelPasswordRequired } from "@/lib/text";
 import { Toast } from "@/components/Toast";
 
@@ -63,10 +62,6 @@ export default function SignInPage() {
     return true;
   }
 
-  async function redirectUser() {
-    router.push('/dashboard')
-  }
-
   async function handleLoginUser() {
     if (handleValidateEmail() && handleValidatePassword()) {
       setLoading(true)
@@ -77,9 +72,8 @@ export default function SignInPage() {
         })
 
         const data = await req.token;
-        Cookies.set('user', data)
-
-        await redirectUser()
+        router.push('/dashboard');
+        Cookies.set('authToken', data)
         
       } catch (error) {
         console.error(error)
