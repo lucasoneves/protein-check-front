@@ -23,12 +23,12 @@ export default function SignInPage() {
 
   function saveUserEmail(e: { target: { value: SetStateAction<String>; }; }) {
     setUserEmail(e.target.value);
-    cleanErrorMessages();
+    clearErrorMessages();
   }
 
   function saveUserPassword(e: { target: { value: SetStateAction<String>; }; }) {
     setUserPassword(e.target.value);
-    cleanErrorMessages();
+    clearErrorMessages();
   }
 
   function handleValidateEmail() {
@@ -88,13 +88,13 @@ export default function SignInPage() {
     return false;
   }
 
-  function cleanErrorMessages() {
+  function clearErrorMessages() {
     setFormError([]);
   }
 
   function checkValidityForm(e: { preventDefault: () => void; }) {
     e.preventDefault();
-    cleanErrorMessages();
+    clearErrorMessages();
     handleLoginUser()
   }
 

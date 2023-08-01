@@ -3,25 +3,43 @@ import { Button } from "@/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyles from "@/components/Input/Input.module.scss";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ErrorTypes } from "@/lib/types";
 import { labelEmailRequired, labelPasswordRequired, labelUsernameRequired, labelEmailNotValid } from "@/lib/text";
 import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
+import { register } from '@/lib/api';
 
 export default function SignUpPage() {
+
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [username, setUserName] = useState("");
-  const [formError, setFormError] = useState<ErrorTypes[]>([]);
+  const [formMessages, setFormMessages] = useState<ErrorTypes[]>([]);
+  const [formValid, setFormValid] = useState(false);
+
+  useEffect(() => {
+    if (formMessages.length <= 0 && (username && userPassword && userEmail)) {
+      setFormValid(true);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formMessages.length])
+
+  useEffect(() => {
+    if (formValid) {
+      makeHttpSignUpRequest();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formValid])
+
   function cleanErrorMessages() {
-    setFormError([]);
+    setFormMessages([]);
   }
 
   function handleSetFormError(text: string, field: string) {
-    return setFormError((prevState) => [
+    return setFormMessages((prevState) => [
       ...prevState,
-      { message: text, field },
+      { message: text, field, touched: true },
     ]);
   }
 
@@ -39,6 +57,20 @@ export default function SignUpPage() {
 
     if (!userPassword) {
       handleSetFormError(labelPasswordRequired, "password");
+    }
+
+  }
+
+  async function makeHttpSignUpRequest() {
+    try {
+      const user = register({
+        username,
+        email: userEmail,
+        password: userPassword
+      })
+      return user;
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -82,9 +114,9 @@ export default function SignUpPage() {
             defaultValue={userPassword}
           />
         </label>
-        {formError.length ? (
+        {formMessages.length ? (
           <ErrorBox>
-            {formError.map((d) => {
+            {formMessages.map((d) => {
               return <p className="mb-2 last:mb-0 text-xs" key={d.message + Math.random()}>{d.message}</p>;
             })}
           </ErrorBox>
