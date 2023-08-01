@@ -8,6 +8,7 @@ import { ErrorTypes } from "@/lib/types";
 import { labelEmailRequired, labelPasswordRequired, labelUsernameRequired, labelEmailNotValid } from "@/lib/text";
 import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
+import { register } from '@/lib/api';
 
 export default function SignUpPage() {
 
@@ -26,8 +27,9 @@ export default function SignUpPage() {
 
   useEffect(() => {
     if (formValid) {
-      console.log("Faz a requisição para signup")
+      makeHttpSignUpRequest();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValid])
 
   function cleanErrorMessages() {
@@ -57,6 +59,19 @@ export default function SignUpPage() {
       handleSetFormError(labelPasswordRequired, "password");
     }
 
+  }
+
+  async function makeHttpSignUpRequest() {
+    try {
+      const user = register({
+        username,
+        email: userEmail,
+        password: userPassword
+      })
+      return user;
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   function handleSignUp(e) {

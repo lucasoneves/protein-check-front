@@ -19,24 +19,41 @@ const fetcher = async ({ url, method, body, json = true }) => {
 };
 
 export const register = async (user) => {
-  return fetcher({
-    url: "/api/register",
-    method: "POST",
-    body: user,
-    json: false,
-  });
+  try {
+    return fetcher({
+      url: "https://protein-tracker-api.onrender.com/signup",
+      method: "POST",
+      body: user,
+    });
+  } catch (error) {
+    console.error('Register =>', error)
+  }
 };
 
 export const signin = async (user) => {
   try {
     return fetcher({
-      url: "http://localhost:3001/signin",
+      url: "https://protein-tracker-api.onrender.com/signin",
       method: "POST",
       body: user,
       json: true,
     });
   } catch (error) {
     // Handle the error (e.g., show an error message)
-    console.error(error);
+    console.error("SignIn =>", error);
   }
 };
+
+export const recoverPassword = async (email) => {
+  try {
+    return fetcher({
+      url: "https://protein-tracker-api.onrender.com/forgot-password",
+      method: "POST",
+      body: email,
+      json: true,
+    });
+  } catch (error) {
+    // Handle the error (e.g., show an error message)
+    console.error("Recover password =>", error);
+  }
+}
