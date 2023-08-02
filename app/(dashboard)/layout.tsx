@@ -1,3 +1,7 @@
+import "../assets/reset.css";
+import "../assets/globals.css";
+import "../assets/pallete.css";
+
 export default function DashboardLayout({
   children,
 }: {
