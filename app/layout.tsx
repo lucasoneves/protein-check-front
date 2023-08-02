@@ -9,7 +9,7 @@ export default function AuthRootLayout({
   return (
     <html lang="en">
       <body>
-        <Container>
+        <Container containerClasses="flex items-center justify-center h-full flex-column ">
           {children}
         </Container>
       </body>

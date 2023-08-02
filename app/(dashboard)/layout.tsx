@@ -1,6 +1,7 @@
 import "../assets/reset.css";
 import "../assets/globals.css";
 import "../assets/pallete.css";
+import styles from './Layout.module.scss';
 
 export default function DashboardLayout({
   children,
@@ -8,10 +9,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main>
+    <main className={styles['layout']}>
       <header>main header</header>
-      {children}
-      <header>main header</header>
+        {children}
     </main>
   );
 }
