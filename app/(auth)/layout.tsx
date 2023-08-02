@@ -1,4 +1,7 @@
-import '../assets/globals.css';
+import "../assets/reset.css";
+import "../assets/globals.css";
+import "../assets/pallete.css";
+import styles from "@/app/(auth)/Auth.module.scss";
 
 export default function AuthRootLayout({
   children,
@@ -6,9 +9,9 @@ export default function AuthRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <h2 className="logo">protein check</h2>
-      {children}
-    </>
+    <div className={styles["wrapper"]}>
+        <h2 className="logo">protein check</h2>
+        {children}
+      </div>
   );
 }

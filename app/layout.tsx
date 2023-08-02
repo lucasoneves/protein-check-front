@@ -1,7 +1,7 @@
 import { Container } from '@/components/Container';
-import styles from '@/app/(auth)/Auth.module.scss';
+// import styles from '@/app/(auth)/Auth.module.scss';
 
-export default function RootLayout({
+export default function AuthRootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -9,10 +9,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Container>
-          <div className={styles['wrapper']}>
-            {children}
-          </div>
+        <Container containerClasses="flex items-center justify-center h-full flex-column ">
+          {children}
         </Container>
       </body>
     </html>
