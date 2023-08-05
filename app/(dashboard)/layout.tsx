@@ -2,6 +2,7 @@ import "../assets/reset.css";
 import "../assets/globals.css";
 import "../assets/pallete.css";
 import styles from './Layout.module.scss';
+import Header from "@/components/Header";
 
 export default function DashboardLayout({
   children,
@@ -10,7 +11,7 @@ export default function DashboardLayout({
 }) {
   return (
     <main className={styles['layout']}>
-      <header>main header</header>
+      <Header />
         {children}
     </main>
   );
