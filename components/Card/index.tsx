@@ -1,5 +1,16 @@
-import styles from './Card.module.scss';
+import { ReactNode } from "react";
+import styles from "./Card.module.scss";
 
-export const Card = () => {
-  return <div className={`${styles['card']} rounded-lg p-2`}>card 1</div>
-}
+export const Card = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className: string;
+}) => {
+  return (
+    <div className={`${className} ${styles["card"]} rounded-lg p-2`}>
+      {children}
+    </div>
+  );
+};
