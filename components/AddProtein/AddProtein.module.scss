@@ -1,6 +1,13 @@
 .add-protein {
   max-width: calc(1280px - 30px);
-  border-radius: 12px;
   background: #222;
-  border: 1px solid var(--fevora);
+}
+
+.input {
+  background: rgba(52, 52, 52, 0.5);
+}
+
+.button {
+  background-color: var(--twope);
+  min-width: 250px;
 }
