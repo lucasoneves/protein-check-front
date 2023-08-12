@@ -1,7 +1,18 @@
+"use client";
+
 import AddProtein from "@/components/AddProtein";
 import { Card } from "@/components/Card";
+import { ChangeEvent, FormEvent, FormEventHandler } from "react";
 
 export default function Home() {
+  function handleAddProteinAmount(e: FormEvent) {
+    e.preventDefault();
+    console.log("heeey");
+  }
+  function changedProteinAmount(e: ChangeEvent) {
+    e.preventDefault();
+    console.log(e.target);
+  }
   return (
     <>
       <main>
@@ -24,11 +35,32 @@ export default function Home() {
           </Card>
         </div>
         <div className="report">
-          <h2 className="mt-5 font-bold">Report</h2>
-          <h3>Chart with progress of the week, or month</h3>
+          <h2 className="mt-5 font-bold">Today</h2>
+          <table className="w-full">
+            <thead>
+              <tr>
+                <th>Horário</th>
+                <th>Amount</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>09:30</td>
+                <td>10g</td>
+                <td>
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </main>
-      <AddProtein />
+      <AddProtein
+        change={changedProteinAmount}
+        handleAdd={handleAddProteinAmount}
+      />
     </>
   );
 }
