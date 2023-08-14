@@ -3,6 +3,7 @@
 import AddProtein from "@/components/AddProtein";
 import { Card } from "@/components/Card";
 import { ChangeEvent, FormEvent, FormEventHandler } from "react";
+import styles from './Home.module.scss';
 
 export default function Home() {
   function handleAddProteinAmount(e: FormEvent) {
@@ -36,25 +37,23 @@ export default function Home() {
         </div>
         <div className="report">
           <h2 className="mt-5 font-bold">Today</h2>
-          <table className="w-full">
-            <thead>
-              <tr>
-                <th>Horário</th>
-                <th>Amount</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>09:30</td>
-                <td>10g</td>
-                <td>
-                  <button>Editar</button>
-                  <button>Excluir</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div className={`${styles['wrapper-report'] } flex flex-col`}>
+            <div className={styles['bar']}>
+              <span>09:20</span>
+              <span>10g</span>
+            </div>
+            <div className={styles['bar']}>
+              <span>13:20</span>
+              <span>10g</span>
+            </div>
+            <div className={styles['bar']}>
+              <span>18:50</span>
+              <span>20g</span>
+            </div>
+          </div>
+        </div>
+        <div className="report">
+          <h2 className="mt-5 font-bold">This week</h2>
         </div>
       </main>
       <AddProtein
