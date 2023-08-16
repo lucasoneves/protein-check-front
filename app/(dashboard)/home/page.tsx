@@ -3,7 +3,7 @@
 import AddProtein from "@/components/AddProtein";
 import { Card } from "@/components/Card";
 import { ChangeEvent, FormEvent, FormEventHandler } from "react";
-import styles from './Home.module.scss';
+import styles from "./Home.module.scss";
 
 export default function Home() {
   function handleAddProteinAmount(e: FormEvent) {
@@ -35,25 +35,77 @@ export default function Home() {
             </h3>
           </Card>
         </div>
-        <div className="report">
-          <h2 className="mt-5 font-bold">Today</h2>
-          <div className={`${styles['wrapper-report'] } flex flex-col`}>
-            <div className={styles['bar']}>
-              <span>09:20</span>
-              <span>10g</span>
-            </div>
-            <div className={styles['bar']}>
-              <span>13:20</span>
-              <span>10g</span>
-            </div>
-            <div className={styles['bar']}>
-              <span>18:50</span>
-              <span>20g</span>
+        <div className="flex justify-between flex-wrap gap-3">
+          <div className="report flex-1">
+            <h2 className="mt-5 font-bold">Today</h2>
+            <div
+              className={`${styles["wrapper-report"]} flex flex-col gap-3 justify-evenly`}
+            >
+              <div
+                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-sm`}
+              >
+                <span>09:20</span>
+                <span className="flex-1">10g</span>
+                <div className="actions flex gap-2 text-sm">
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </div>
+              </div>
+              <div
+                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-sm`}
+              >
+                <span>09:20</span>
+                <span className="flex-1">10g</span>
+                <div className="actions flex gap-2 text-sm">
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </div>
+              </div>
+              <div
+                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-sm`}
+              >
+                <span>09:20</span>
+                <span className="flex-1">10g</span>
+                <div className="actions flex gap-2 text-sm">
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="report">
-          <h2 className="mt-5 font-bold">This week</h2>
+          <div className="report flex-1">
+            <h2 className="mt-5 font-bold">This week</h2>
+            <div className="grid grid-cols-7 h-full">
+              <div className="flex flex-col text-xs items-center justify-end">
+                <span style={{height: '100%'}}>100g</span>
+                <span>Sun</span>
+              </div>
+              <div className="flex flex-col text-xs items-center justify-end">
+              <span style={{height: '50%'}}>100g</span>
+                <span>Mon</span>
+              </div>
+              <div className="flex flex-col text-xs items-center justify-end">
+              <span style={{height: '100%'}}>100g</span>
+                <span>Tue</span>
+              </div>
+              <div className="flex flex-col text-xs items-center justify-end">
+              <span style={{height: '100%'}}>100g</span>
+                <span>Wed</span>
+              </div>
+              <div className="flex flex-col text-xs items-center justify-end">
+              <span style={{height: '100%'}}>100g</span>
+                <span>Thu</span>
+              </div>
+              <div className="flex flex-col text-xs items-center justify-end">
+              <span style={{height: '100%'}}>100g</span>
+                <span>Fri</span>
+              </div>
+              <div className="flex flex-col text-xs items-center justify-end">
+              <span style={{height: '100%'}}>100g</span>
+                <span>Sat</span>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
       <AddProtein
