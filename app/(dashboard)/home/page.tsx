@@ -3,7 +3,7 @@
 import AddProtein from "@/components/AddProtein";
 import { Card } from "@/components/Card";
 import { ChangeEvent, FormEvent, FormEventHandler } from "react";
-import styles from './Home.module.scss';
+import styles from "./Home.module.scss";
 
 export default function Home() {
   function handleAddProteinAmount(e: FormEvent) {
@@ -35,25 +35,45 @@ export default function Home() {
             </h3>
           </Card>
         </div>
-        <div className="report">
-          <h2 className="mt-5 font-bold">Today</h2>
-          <div className={`${styles['wrapper-report'] } flex flex-col`}>
-            <div className={styles['bar']}>
-              <span>09:20</span>
-              <span>10g</span>
-            </div>
-            <div className={styles['bar']}>
-              <span>13:20</span>
-              <span>10g</span>
-            </div>
-            <div className={styles['bar']}>
-              <span>18:50</span>
-              <span>20g</span>
+        <div className="flex justify-between flex-wrap gap-3">
+          <div className="report flex-1">
+            <h2 className="mt-5 font-bold">Today</h2>
+            <div
+              className={`${styles["wrapper-report"]} flex flex-col gap-3 justify-evenly`}
+            >
+              <div
+                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
+              >
+                <span>09:20</span>
+                <span className="flex-1">10g</span>
+                <div className="actions flex gap-2 text-xs">
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </div>
+              </div>
+              <div
+                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
+              >
+                <span>09:20</span>
+                <span className="flex-1">10g</span>
+                <div className="actions flex gap-2 text-xs">
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </div>
+              </div>
+              <div
+                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
+              >
+                <span>09:20</span>
+                <span className="flex-1">10g</span>
+                <div className="actions flex gap-2 text-xs">
+                  <button>Editar</button>
+                  <button>Excluir</button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="report">
-          <h2 className="mt-5 font-bold">This week</h2>
+          
         </div>
       </main>
       <AddProtein
