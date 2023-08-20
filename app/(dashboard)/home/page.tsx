@@ -18,59 +18,77 @@ export default function Home() {
     <>
       <main>
         <h3 className="mt-5 font-bold">Overview</h3>
-        <div className="grid sm:grid-cols-3 auto-cols-fr gap-5 mt-5 mb-5">
-          <Card className="sm:p-8 p-12">
-            <h3 className="flex items-center justify-center flex-col">
-              Today: <span className="text-4xl block">50g</span>
+        <div className="grid sm:grid-cols-3 auto-cols-fr sm:gap-5 gap-2 mt-5 mb-5">
+          <Card className="sm:p-8 p-12 col-span-2 row-span-2 flex items-center justify-center">
+            <h3 className="flex items-center justify-center flex-col text-sm">
+              Today: <span className="sm:text-6xl text-3xl block">50g</span>
             </h3>
           </Card>
           <Card className="sm:p-8 p-12">
-            <h3 className="flex items-center justify-center flex-col">
-              Your daily goal: <span className="text-4xl block">100g</span>
+            <h3 className="flex items-center justify-center flex-col text-sm">
+              Your daily goal: <span className="text-2xl block">100g</span>
             </h3>
           </Card>
           <Card className="sm:p-8 p-12">
-            <h3 className="flex items-center justify-center flex-col">
-              Progress: <span className="text-4xl block">50%</span>
+            <h3 className="flex items-center justify-center flex-col text-sm">
+              Progress: <span className="text-2xl block">50%</span>
             </h3>
           </Card>
         </div>
         <div className="flex justify-between flex-wrap gap-3">
           <div className="report flex-1">
-            <h2 className="mt-5 font-bold">Today</h2>
+            <h2 className="mt-5 mb-5 font-bold">Today</h2>
             <div
               className={`${styles["wrapper-report"]} flex flex-col gap-3 justify-evenly`}
             >
-              <div
-                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
-              >
-                <span>09:20</span>
-                <span className="flex-1">10g</span>
-                <div className="actions flex gap-2 text-xs">
-                  <button>Editar</button>
-                  <button>Excluir</button>
+              <Card className="card-amount">
+                <div
+                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
+                >
+                  <span>09:20</span>
+                  <span className="flex-1">10g</span>
+                  <div className="actions flex gap-2 text-xs">
+                    <button>Editar</button>
+                    <button>Excluir</button>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
-              >
-                <span>09:20</span>
-                <span className="flex-1">10g</span>
-                <div className="actions flex gap-2 text-xs">
-                  <button>Editar</button>
-                  <button>Excluir</button>
+              </Card>
+              <Card className="card-amount">
+                <div
+                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
+                >
+                  <span>13:28</span>
+                  <span className="flex-1">10g</span>
+                  <div className="actions flex gap-2 text-xs">
+                    <button>Editar</button>
+                    <button>Excluir</button>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
-              >
-                <span>09:20</span>
-                <span className="flex-1">10g</span>
-                <div className="actions flex gap-2 text-xs">
-                  <button>Editar</button>
-                  <button>Excluir</button>
+              </Card>
+              <Card className="card-amount">
+                <div
+                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
+                >
+                  <span>16:30</span>
+                  <span className="flex-1">10g</span>
+                  <div className="actions flex gap-2 text-xs">
+                    <button>Editar</button>
+                    <button>Excluir</button>
+                  </div>
                 </div>
-              </div>
+              </Card>
+              <Card className="card-amount">
+                <div
+                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
+                >
+                  <span>20:45</span>
+                  <span className="flex-1">10g</span>
+                  <div className="actions flex gap-2 text-xs">
+                    <button>Editar</button>
+                    <button>Excluir</button>
+                  </div>
+                </div>
+              </Card>
             </div>
           </div>
           

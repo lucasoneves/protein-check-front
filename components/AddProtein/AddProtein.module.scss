@@ -1,5 +1,10 @@
 .add-protein {
   background: #222;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .input {
@@ -7,5 +12,7 @@
 }
 
 .button {
-  background-color: var(--twope);
+  background-color: var(--savana);
+  color: var(--twope);
+  font-weight: bold;
 }
