@@ -2,10 +2,16 @@
 
 import AddProtein from "@/components/AddProtein";
 import { Card } from "@/components/Card";
-import { ChangeEvent, FormEvent, FormEventHandler } from "react";
+import { ChangeEvent, FormEvent, FormEventHandler, ReactElement, useState } from "react";
 import styles from "./Home.module.scss";
+import CardDaily from "@/components/CardDaily";
 
 export default function Home() {
+  const [dailyInfo, setDailyInfo] = useState([
+    { createdAt: new Date(), amount: 10, id: 1 },
+    { createdAt: new Date('2023-08-21, 12:10'), amount: 22, id: 2 },
+    { createdAt: new Date(), amount: 65, id: 3 }
+  ]);
   function handleAddProteinAmount(e: FormEvent) {
     e.preventDefault();
     console.log("heeey");
@@ -13,6 +19,12 @@ export default function Home() {
   function changedProteinAmount(e: ChangeEvent) {
     e.preventDefault();
     console.log(e.target);
+  }
+  function editCard(e: object) {
+    console.log(e);
+  }
+  function deleteCard(e: object) {
+    console.log(e);
   }
   return (
     <>
@@ -41,57 +53,18 @@ export default function Home() {
             <div
               className={`${styles["wrapper-report"]} flex flex-col gap-3 justify-evenly`}
             >
-              <Card className="card-amount">
-                <div
-                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
-                >
-                  <span>09:20</span>
-                  <span className="flex-1">10g</span>
-                  <div className="actions flex gap-2 text-xs">
-                    <button>Editar</button>
-                    <button>Excluir</button>
-                  </div>
-                </div>
-              </Card>
-              <Card className="card-amount">
-                <div
-                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
-                >
-                  <span>13:28</span>
-                  <span className="flex-1">10g</span>
-                  <div className="actions flex gap-2 text-xs">
-                    <button>Editar</button>
-                    <button>Excluir</button>
-                  </div>
-                </div>
-              </Card>
-              <Card className="card-amount">
-                <div
-                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
-                >
-                  <span>16:30</span>
-                  <span className="flex-1">10g</span>
-                  <div className="actions flex gap-2 text-xs">
-                    <button>Editar</button>
-                    <button>Excluir</button>
-                  </div>
-                </div>
-              </Card>
-              <Card className="card-amount">
-                <div
-                  className={`${styles["bar"]} p-3 flex gap-6 rounded-md text-xs`}
-                >
-                  <span>20:45</span>
-                  <span className="flex-1">10g</span>
-                  <div className="actions flex gap-2 text-xs">
-                    <button>Editar</button>
-                    <button>Excluir</button>
-                  </div>
-                </div>
-              </Card>
+              {dailyInfo.map((item) => (
+                <CardDaily
+                  key={item.id}
+                  createdAt={`${item.createdAt.getHours()}:${item.createdAt.getMinutes()}`}
+                  amount={item.amount}
+                  id={item.id}
+                  handleEdit={() => editCard(item)}
+                  handleDelete={() => deleteCard(item)}
+                />
+              ))}
             </div>
           </div>
-          
         </div>
       </main>
       <AddProtein
