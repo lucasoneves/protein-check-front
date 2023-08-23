@@ -16,7 +16,7 @@ function CardDaily({
 }) {
   return (
     <Card className="card-amount">
-      <div className={`p-3 flex gap-6 rounded-md text-xs`}>
+      <div className={`p-3 flex gap-6 rounded-md text-sm`}>
         <span>{createdAt}</span>
         <span className="flex-1">{amount}g</span>
         <div className="actions flex gap-2 text-xs">

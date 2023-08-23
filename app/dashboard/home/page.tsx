@@ -12,14 +12,7 @@ export default function Home() {
     { createdAt: new Date('2023-08-21, 12:10'), amount: 22, id: 2 },
     { createdAt: new Date(), amount: 65, id: 3 }
   ]);
-  function handleAddProteinAmount(e: FormEvent) {
-    e.preventDefault();
-    console.log("heeey");
-  }
-  function changedProteinAmount(e: ChangeEvent) {
-    e.preventDefault();
-    console.log(e.target);
-  }
+  
   function editCard(e: object) {
     console.log(e);
   }
@@ -31,7 +24,7 @@ export default function Home() {
       <main>
         <h3 className="mt-5 font-bold">Overview</h3>
         <div className="grid sm:grid-cols-3 auto-cols-fr sm:gap-5 gap-2 mt-5 mb-5">
-          <Card className="sm:p-8 p-12 col-span-2 row-span-2 flex items-center justify-center">
+          <Card className="col-span-2 row-span-2 flex items-center justify-center">
             <h3 className="flex items-center justify-center flex-col text-sm">
               Today: <span className="sm:text-6xl text-3xl block">50g</span>
             </h3>
@@ -67,10 +60,7 @@ export default function Home() {
           </div>
         </div>
       </main>
-      <AddProtein
-        change={changedProteinAmount}
-        handleAdd={handleAddProteinAmount}
-      />
+      
     </>
   );
 }

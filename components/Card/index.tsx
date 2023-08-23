@@ -9,7 +9,7 @@ export const Card = ({
   className: string;
 }) => {
   return (
-    <div className={`${className} ${styles["card"]} rounded-lg p-2`}>
+    <div className={`${className} ${styles["card"]} rounded-lg p-4`}>
       {children}
     </div>
   );
