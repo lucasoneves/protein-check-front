@@ -60,7 +60,6 @@ export default function Home() {
             >
               {dailyInfo.map((item) => (
                 <CardDaily
-                  isEditing={item.id === itemEditting.id}
                   key={item.id}
                   id={item.id}
                   createdAt={`${item.createdAt.getHours()}:${
@@ -71,7 +70,9 @@ export default function Home() {
                   amount={item.amount}
                   handleEdit={() => editCard(item)}
                   handleDelete={() => deleteCard(item)}
-                />
+                >
+                {item.id === itemEditting.id ? <input type="number" className="input-editting w-full" /> : <span className="flex-1">{item.amount}g</span>}
+                </CardDaily>
               ))}
             </div>
           </div>
@@ -80,3 +81,4 @@ export default function Home() {
     </>
   );
 }
+  
