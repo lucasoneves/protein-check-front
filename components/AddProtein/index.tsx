@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
 import styles from "./AddProtein.module.scss";
+import { VscAdd } from "react-icons/vsc";
 
 export default function AddProtein() {
   function handleAddProteinAmount(e: FormEvent) {
@@ -23,7 +24,7 @@ export default function AddProtein() {
             placeholder="Add protein"
             onChange={changedProteinAmount}
           ></input>
-          <button className={`${styles["button"]} p-4 rounded-lg`}>Add</button>
+          <button className={`${styles["button"]} p-4 rounded-full flex items-center justify-center text-lg`}><VscAdd /></button>
         </form>
     </div>
   );
