@@ -8,6 +8,13 @@
 
 .button {
   background-color: var(--savana);
-  color: var(--twope);
+  color: black;
   font-weight: bold;
+  height: 56px;
+  width: 56px;
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
 }
