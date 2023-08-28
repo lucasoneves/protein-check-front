@@ -1,10 +1,16 @@
 "use client";
 import { Card } from "@/components/Card";
 import {
+  ChangeEventHandler,
+  DOMElement,
+  ReactElement,
+  ReactEventHandler,
   useState,
 } from "react";
 import styles from "./Home.module.scss";
 import CardDaily from "@/components/CardDaily";
+import EditProtein from "@/components/EditItem";
+import { Input } from "@mui/material";
 
 export default function Home() {
   const [dailyInfo, setDailyInfo] = useState([
@@ -19,7 +25,11 @@ export default function Home() {
     id: number;
   };
 
-  const [itemEditting, setItemEditting] = useState<ProteinIten>({ createdAt: new Date(), amount: 0, id: 0 });
+  const [itemEditting, setItemEditting] = useState<ProteinIten>({
+    createdAt: new Date(),
+    amount: 0,
+    id: 0,
+  });
   const [isEditing, setIsEditting] = useState(false);
 
   function editCard(e: ProteinIten) {
@@ -28,6 +38,12 @@ export default function Home() {
   }
   function deleteCard(e: object) {
     console.log(e);
+  }
+  function handleEdit(event: { target: HTMLInputElement; event: Event }) {
+    const target = (event.target as HTMLInputElement).value;
+    setItemEditting((prevState) => {
+      return {...prevState, target: target}
+    })
   }
   return (
     <>
@@ -58,22 +74,32 @@ export default function Home() {
             <div
               className={`${styles["wrapper-report"]} flex flex-col gap-3 justify-evenly`}
             >
-              {dailyInfo.map((item) => (
-                <CardDaily
-                  key={item.id}
-                  id={item.id}
-                  createdAt={`${item.createdAt.getHours()}:${
-                    item.createdAt.getMinutes() <= 9
-                      ? "0" + item.createdAt.getMinutes()
-                      : item.createdAt.getMinutes()
-                  }`}
-                  amount={item.amount}
-                  handleEdit={() => editCard(item)}
-                  handleDelete={() => deleteCard(item)}
-                >
-                {item.id === itemEditting.id ? <input type="number" className="input-editting w-full" /> : <span className="flex-1">{item.amount}g</span>}
-                </CardDaily>
-              ))}
+              {dailyInfo.map((item) =>
+                item.id === itemEditting.id ? (
+                  <EditProtein key={"item-" + item.id}>
+                    <input
+                      type="text"
+                      onChange={() => handleEdit}
+                      className="p-2 bg-transparent border border-gray-400 rounded-lg text-sm"
+                      autoFocus
+                      defaultValue={itemEditting.amount}
+                    />
+                  </EditProtein>
+                ) : (
+                  <CardDaily
+                    key={item.id}
+                    id={item.id}
+                    createdAt={`${item.createdAt.getHours()}:${
+                      item.createdAt.getMinutes() <= 9
+                        ? "0" + item.createdAt.getMinutes()
+                        : item.createdAt.getMinutes()
+                    }`}
+                    amount={item.amount}
+                    handleEdit={() => editCard(item)}
+                    handleDelete={() => deleteCard(item)}
+                  />
+                )
+              )}
             </div>
           </div>
         </div>
@@ -81,4 +107,3 @@ export default function Home() {
     </>
   );
 }
-  
