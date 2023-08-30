@@ -1,28 +1,34 @@
 import { ReactEventHandler, ReactNode } from "react";
 import { Card } from "../Card";
-import { VscEdit, VscTrash } from "react-icons/vsc";
 
+import { MdOutlineModeEditOutline, MdDeleteOutline } from "react-icons/md";
 function CardDaily({
   createdAt,
   amount,
   handleEdit,
   handleDelete,
-  id
+  id,
 }: {
   createdAt: string;
   amount: number;
   handleEdit: ReactEventHandler<Element>;
   handleDelete: ReactEventHandler<Element>;
-  id: number
+  id: number;
 }) {
   return (
-    <Card className="card-amount">
-      <div className={`p-3 flex gap-6 rounded-md text-sm`}>
+    <Card className="card-amount h-16 flex items-center justify-between">
+      <div className={`flex gap-6 rounded-md text-sm w-full`}>
         <span>{createdAt}</span>
         <span className="flex-1">{amount}g</span>
         <div className="actions flex gap-4 text-xl">
-          <button onClick={handleEdit} className="flex gap-1"> <VscEdit /> </button>
-          <button onClick={handleDelete} className="flex gap-1"> <VscTrash /> </button>
+          <button onClick={handleEdit} className="flex gap-1">
+            {" "}
+            <MdOutlineModeEditOutline />{" "}
+          </button>
+          <button onClick={handleDelete} className="flex gap-1">
+            {" "}
+            <MdDeleteOutline />{" "}
+          </button>
         </div>
       </div>
     </Card>
