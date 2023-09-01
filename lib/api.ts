@@ -1,36 +1,19 @@
-const fetcher = async ({ url, method, body, json = true }) => {
-  const res = await fetch(url, {
-    method,
-    body: body && JSON.stringify(body),
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
+import { fetcher } from "./fetcher";
 
-  if (!res.ok) {
-    throw new Error("API Error");
-  }
-
-  if (json) {
-    const data = await res.json();
-    return data;
-  }
-};
-
-export const register = async (user) => {
+export const register = async (user: object) => {
   try {
     return fetcher({
       url: "https://protein-tracker-api.onrender.com/signup",
       method: "POST",
       body: user,
+      json: true
     });
   } catch (error) {
     console.error('Register =>', error)
   }
 };
 
-export const signin = async (user) => {
+export const signin = async (user: object) => {
   try {
     return fetcher({
       url: "https://protein-tracker-api.onrender.com/signin",
@@ -44,7 +27,7 @@ export const signin = async (user) => {
   }
 };
 
-export const recoverPassword = async (email) => {
+export const recoverPassword = async (email: object) => {
   try {
     return fetcher({
       url: "https://protein-tracker-api.onrender.com/forgot-password",
@@ -56,4 +39,8 @@ export const recoverPassword = async (email) => {
     // Handle the error (e.g., show an error message)
     console.error("Recover password =>", error);
   }
+}
+
+export const getUserData = async (email) => {
+
 }

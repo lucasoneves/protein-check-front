@@ -72,7 +72,7 @@ export default function SignInPage() {
         })
 
         const data = await req.token;
-        router.push('/dashboard');
+        router.push('/dashboard/home');
         Cookies.set('authToken', data)
         
       } catch (error) {
