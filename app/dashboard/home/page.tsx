@@ -1,16 +1,11 @@
 "use client";
 import { Card } from "@/components/Card";
 import {
-  ChangeEventHandler,
-  DOMElement,
-  ReactElement,
-  ReactEventHandler,
   useState,
 } from "react";
 import styles from "./Home.module.scss";
 import CardDaily from "@/components/CardDaily";
 import EditProtein from "@/components/EditItem";
-import { Input } from "@mui/material";
 
 export default function Home() {
   const [dailyInfo, setDailyInfo] = useState([
@@ -19,17 +14,19 @@ export default function Home() {
     { createdAt: new Date(), amount: 65, id: 3 },
   ]);
 
+  const initialState = {
+    createdAt: new Date(),
+    amount: 0,
+    id: 0,
+  }
+
   type ProteinIten = {
     createdAt: Date;
     amount: number;
     id: number;
   };
 
-  const [itemEditting, setItemEditting] = useState<ProteinIten>({
-    createdAt: new Date(),
-    amount: 0,
-    id: 0,
-  });
+  const [itemEditting, setItemEditting] = useState<ProteinIten>(initialState);
   const [isEditing, setIsEditting] = useState(false);
 
   function editCard(e: ProteinIten) {
@@ -42,8 +39,11 @@ export default function Home() {
   function handleEdit(event: { target: HTMLInputElement; event: Event }) {
     const target = (event.target as HTMLInputElement).value;
     setItemEditting((prevState) => {
-      return {...prevState, target: target}
-    })
+      return { ...prevState, target: target };
+    });
+  }
+  function handleCancelEditing() {
+    setItemEditting(initialState);
   }
   return (
     <>
@@ -76,7 +76,10 @@ export default function Home() {
             >
               {dailyInfo.map((item) =>
                 item.id === itemEditting.id ? (
-                  <EditProtein key={"item-" + item.id}>
+                  <EditProtein
+                    key={"item-" + item.id}
+                    cancelAction={handleCancelEditing}
+                  >
                     <input
                       type="text"
                       onChange={() => handleEdit}

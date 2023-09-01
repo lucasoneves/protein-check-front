@@ -1,19 +1,20 @@
-import { NextResponse } from "next/server"
-
-export function middleware(req, next) {
-  const nextUrl = req.nextUrl
-  if (nextUrl.pathname === '/dashboard') {
-    console.log(req.cookies.authToken)
-    // if (req.cookies.get("authToken")) {
-    //   return NextResponse.rewrite(new URL('/dashboard', req.url))
-    // } else {
-    //   return NextResponse.redirect(new URL('/signin', req.url))
-    // }
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+ 
+export function middleware(request: NextRequest) {
+  const AUTH_TOKEN = request.cookies.get('authToken');
+  const currentPage = (page: string) => {
+    return request.nextUrl.pathname.startsWith(page)
   }
-
-  if (nextUrl.pathname === '/signup' || nextUrl.pathname === '/signin') {
-    if (req.cookies.get('authToken')) {
-      return NextResponse.redirect(new URL('/dashboard', req.url))
+  if (currentPage('/dashboard')) {
+    if (!AUTH_TOKEN) {
+      return NextResponse.redirect(new URL('/signin', request.url))
+    }
+  } else if (currentPage('/signin') || currentPage('/signup')) {
+    if (!AUTH_TOKEN) {
+      return
+    } else {
+      return NextResponse.redirect(new URL('/dashboard/home', request.url))
     }
   }
 }
