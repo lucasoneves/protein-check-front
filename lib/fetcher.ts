@@ -1,17 +1,19 @@
 type FetcherType = {
   url: string,
   method: string,
-  body: object,
-  json: boolean
+  body: object | null,
+  json: boolean,
+  token: string | null
 }
 
-export const fetcher = async ({ url, method, body, json = true }: FetcherType) => {
+export const fetcher = async ({ url, method, body, json = true, token }: FetcherType) => {
   const res = await fetch(url, {
     method,
-    body: body && JSON.stringify(body),
+    body: body ? JSON.stringify(body): null,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
     },
   });
 

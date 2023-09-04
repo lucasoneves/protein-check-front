@@ -1,17 +1,19 @@
 "use client";
 import { Card } from "@/components/Card";
 import {
+  useEffect,
   useState,
 } from "react";
 import styles from "./Home.module.scss";
 import CardDaily from "@/components/CardDaily";
 import EditProtein from "@/components/EditItem";
+import { getUserData } from "@/lib/api";
+import { cookies } from "next/dist/client/components/headers";
+import Cookies from "js-cookie";
 
 export default function Home() {
   const [dailyInfo, setDailyInfo] = useState([
     { createdAt: new Date(), amount: 10, id: 1 },
-    { createdAt: new Date("2023-08-21, 12:05"), amount: 22, id: 2 },
-    { createdAt: new Date(), amount: 65, id: 3 },
   ]);
 
   const initialState = {
@@ -45,6 +47,18 @@ export default function Home() {
   function handleCancelEditing() {
     setItemEditting(initialState);
   }
+  function handleSaveItem(item: object) {
+    console.log(item)
+  }
+
+  function getDataUser() {
+    const data = getUserData(Cookies.get('authToken')!);
+    return data
+  }
+
+  useEffect(() => {
+    getDataUser()
+  }, [])
   return (
     <>
       <main>
@@ -77,6 +91,7 @@ export default function Home() {
               {dailyInfo.map((item) =>
                 item.id === itemEditting.id ? (
                   <EditProtein
+                    saveAction={() => handleSaveItem(item)}
                     key={"item-" + item.id}
                     cancelAction={handleCancelEditing}
                   >
