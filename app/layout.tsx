@@ -1,5 +1,6 @@
-import { Container } from '@/components/Container';
+import { Container } from "@/components/Container";
 // import styles from '@/app/(auth)/Auth.module.scss';
+import { Providers } from "./store/provider";
 
 export default function AuthRootLayout({
   children,
@@ -9,9 +10,11 @@ export default function AuthRootLayout({
   return (
     <html lang="en">
       <body>
-        <Container containerClasses="flex items-center justify-center flex-column ">
-          {children}
-        </Container>
+        <Providers>
+          <Container containerClasses="flex items-center justify-center flex-column ">
+            {children}
+          </Container>
+        </Providers>
       </body>
     </html>
   );

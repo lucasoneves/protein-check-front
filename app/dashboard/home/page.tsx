@@ -8,13 +8,17 @@ import styles from "./Home.module.scss";
 import CardDaily from "@/components/CardDaily";
 import EditProtein from "@/components/EditItem";
 import { getUserData } from "@/lib/api";
-import { cookies } from "next/dist/client/components/headers";
 import Cookies from "js-cookie";
+import { setUserInfo } from "@/app/store/userSlice";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 
 export default function Home() {
   const [dailyInfo, setDailyInfo] = useState([
     { createdAt: new Date(), amount: 10, id: 1 },
   ]);
+  const [user, setUser] = useState({});
+  const userInfo = useAppSelector((state) => state.userReducer.userInfo)
+  const dispatch = useAppDispatch();
 
   const initialState = {
     createdAt: new Date(),
@@ -51,14 +55,24 @@ export default function Home() {
     console.log(item)
   }
 
-  function getDataUser() {
-    const data = getUserData(Cookies.get('authToken')!);
-    return data
+  async function getDataUser() {
+    try {
+      const response = await getUserData(Cookies.get('authToken')!);
+      dispatch(setUserInfo(response.data[0]))
+      return response
+    } catch (error) {
+      console.error('Error trying to load user info', error)
+    }
   }
 
   useEffect(() => {
     getDataUser()
   }, [])
+
+  useEffect(() => {
+    console.log(userInfo)
+  }, [userInfo])
+
   return (
     <>
       <main>

@@ -8,15 +8,17 @@ import Header from "@/components/Header";
 import AddProtein from "@/components/AddProtein";
 import { Container } from "@/components/Container";
 import MenuNav from "@/components/MenuNav/page";
+import { useAppSelector } from "../store/hooks";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const {username} = useAppSelector((state) => state.userReducer.userInfo)
   return (
     <main className={styles['layout']}>
-      <Header />
+      <Header userName={username} />
         {children}
         <footer className="fixed bottom-0 left-0 right-0 m-auto">
           <Container containerClasses={'container-footer'}>
