@@ -9,6 +9,7 @@ import { ErrorTypes } from "@/lib/types";
 import { labelEmailNotValid, labelEmailRequired } from "@/lib/text";
 import { ErrorBox } from "@/components/ErrorBox";
 import { recoverPassword } from "@/lib/api";
+import Cookies from "js-cookie";
 
 export default function RecoverPassword() {
   const [email, setEmail] = useState<String>('');
@@ -24,11 +25,11 @@ export default function RecoverPassword() {
   function clearErrorMessages() {
     setFormMessages([]);
   }
-  function emailHandler(e) {
+  function emailHandler(e: any) {
     clearErrorMessages();
     setEmail(e.target.value)
   }
-  function handleSubmit(e) {
+  function handleSubmit(e: any) {
     e.preventDefault();
     clearErrorMessages();
     if (!validateEmail(email)) {
@@ -36,9 +37,7 @@ export default function RecoverPassword() {
     } else {
       setLoading(true);
       try {
-        const req = recoverPassword({
-          email
-        })
+        const req = recoverPassword(email, Cookies.get('authToken')!)
         return req;
       } catch (error) {
         console.error(error)

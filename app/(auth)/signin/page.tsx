@@ -14,19 +14,19 @@ import { Toast } from "@/components/Toast";
 
 
 export default function SignInPage() {
-  const [userEmail, setUserEmail] = useState<String>("");
-  const [userPassword, setUserPassword] = useState<String>("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [userPassword, setUserPassword] = useState<string>("");
   const [formError, setFormError] = useState<ErrorTypes[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   
   const router = useRouter()
 
-  function saveUserEmail(e: { target: { value: SetStateAction<String>; }; }) {
+  function saveUserEmail(e: { target: { value: string; }; }) {
     setUserEmail(e.target.value);
     clearErrorMessages();
   }
 
-  function saveUserPassword(e: { target: { value: SetStateAction<String>; }; }) {
+  function saveUserPassword(e: { target: { value: string; }; }) {
     setUserPassword(e.target.value);
     clearErrorMessages();
   }
@@ -110,7 +110,7 @@ export default function SignInPage() {
           <input
             className={inputStyle["input"]}
             type="text"
-            value={userEmail}
+            defaultValue={userEmail}
             onChange={saveUserEmail}
           />
         </label>
