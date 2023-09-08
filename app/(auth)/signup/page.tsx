@@ -3,7 +3,7 @@ import { Button } from "@/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyles from "@/components/Input/Input.module.scss";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { ErrorTypes } from "@/lib/types";
 import { labelEmailRequired, labelPasswordRequired, labelUsernameRequired, labelEmailNotValid } from "@/lib/text";
 import { ErrorBox } from "@/components/ErrorBox";
@@ -74,7 +74,7 @@ export default function SignUpPage() {
     }
   }
 
-  function handleSignUp(e) {
+  function handleSignUp(e: FormEvent) {
     e.preventDefault();
     cleanErrorMessages();
     validateForm();

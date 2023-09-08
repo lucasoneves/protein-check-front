@@ -1,11 +1,23 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface UserState {
-  userInfo: { username: string };
+  userInfo: {
+    email: string;
+    id: string;
+    proteinAmount: [{ quantity: number | null}];
+    proteinTarget: Array<object>;
+    username: string;
+  };
 }
 
 const initialState: UserState = {
-  userInfo: { username: '' },
+  userInfo: {
+    email: '',
+    id: '',
+    proteinAmount: [{ quantity: null }],
+    proteinTarget: [],
+    username: ''
+  }
 };
 
 export const userSlice = createSlice({
@@ -13,7 +25,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserInfo(state, action) {
-      state.userInfo = action.payload;
+      if (action.payload) {
+        state.userInfo = action.payload;
+      }
     }
   }
 });
