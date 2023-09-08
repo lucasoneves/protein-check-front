@@ -17,7 +17,7 @@ export default function Home() {
     { createdAt: new Date(), amount: 10, id: 1 },
   ]);
   const [user, setUser] = useState({});
-  const userInfo = useAppSelector((state) => state.userReducer.userInfo)
+  const userInfo = useAppSelector((state) => state.userReducer.userInfo);
   const dispatch = useAppDispatch();
 
   const initialState = {
@@ -58,7 +58,8 @@ export default function Home() {
   async function getDataUser() {
     try {
       const response = await getUserData(Cookies.get('authToken')!);
-      dispatch(setUserInfo(response.data[0]))
+      const user = await response.data[0]
+      dispatch(setUserInfo(user));
       return response
     } catch (error) {
       console.error('Error trying to load user info', error)
@@ -81,7 +82,7 @@ export default function Home() {
           <Card className="col-span-2 row-span-2 flex items-center justify-center">
             <h3 className="flex items-center justify-center flex-col text-sm">
               Today:{" "}
-              <span className="sm:text-6xl text-3xl block font-bold">50g</span>
+              <span className="sm:text-6xl text-3xl block font-bold">{userInfo.proteinAmount.reduce((acc, item) => acc + item.quantity!, 0)}g</span>
             </h3>
           </Card>
           <Card className="sm:p-8 p-12">
