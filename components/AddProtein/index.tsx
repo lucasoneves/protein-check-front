@@ -1,3 +1,4 @@
+"use client";
 import { FormEvent } from "react";
 import styles from "./AddProtein.module.scss";
 import { VscAdd } from "react-icons/vsc";

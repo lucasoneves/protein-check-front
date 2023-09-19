@@ -13,7 +13,7 @@ function CardDaily({
   amount: number;
   handleEdit: ReactEventHandler<Element>;
   handleDelete: ReactEventHandler<Element>;
-  id: number;
+  id: string;
 }) {
   return (
     <Card className="card-amount h-16 flex items-center justify-between">

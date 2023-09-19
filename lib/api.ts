@@ -1,9 +1,13 @@
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { fetcher } from "./fetcher";
+
+const local = "http://localhost:3001"
+const dev = "https://protein-tracker-api.onrender.com"
 
 export const register = async (user: object) => {
   try {
     return fetcher({
-      url: "https://protein-tracker-api.onrender.com/signup",
+      url: `${local}/signup`,
       method: "POST",
       body: user,
       json: true,
@@ -15,9 +19,10 @@ export const register = async (user: object) => {
 };
 
 export const signin = async (user: object) => {
+  
   try {
     return fetcher({
-      url: "https://protein-tracker-api.onrender.com/signin",
+      url: `${local}/signin`,
       method: "POST",
       body: user,
       json: true,
@@ -47,7 +52,7 @@ export const recoverPassword = async (email: object, token: string) => {
 export const getUserData = async (tokenId: string) => {
   try {
     return fetcher({
-      url: "https://protein-tracker-api.onrender.com/api/proteinamount",
+      url: `${local}/api/proteinamount`,
       method: "GET",
       body: null,
       json: true,
