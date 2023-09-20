@@ -10,30 +10,18 @@ import { labelEmailRequired, labelPasswordRequired, labelUsernameRequired, label
 import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
 import { register } from '@/lib/api';
+import { useRouter } from "next/navigation";
 
 export default function SignUpPage() {
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [formMessages, setFormMessages] = useState<ErrorTypes[]>([]);
   const [formValid, setFormValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const isFormValid = userPassword && userName && userEmail
-
-  useEffect(() => {
-    if (formMessages.length <= 0 && (isFormValid)) {
-      setFormValid(true);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userName, userPassword, userEmail])
-
-  useEffect(() => {
-    if (formValid) {
-      makeHttpSignUpRequest();
-    }
-  }, [formValid])
+  const router = useRouter();
 
   function cleanErrorMessages() {
     setFormMessages([]);
@@ -47,24 +35,24 @@ export default function SignUpPage() {
   }
 
   function validateForm() {
-    if (!isFormValid) {
-      if (!userName) {
-        handleSetFormError(labelUsernameRequired, "username");
-      }
-      if (!userEmail) {
-        handleSetFormError(labelEmailRequired, "email");
-      }
-  
-      if (userEmail && !validateEmail(userEmail)) {
-        handleSetFormError(labelEmailNotValid, "email");
-      }
-  
-      if (!userPassword) {
-        handleSetFormError(labelPasswordRequired, "password");
-      }
-    } else {
-      setFormValid(true)
-      console.log("form valid", formValid)
+    const valid = username && userEmail && userPassword && validateEmail(userEmail);
+    if (!username) {
+      handleSetFormError(labelUsernameRequired, "username");
+    }
+    if (!userEmail) {
+      handleSetFormError(labelEmailRequired, "email");
+    }
+
+    if (userEmail && !validateEmail(userEmail)) {
+      handleSetFormError(labelEmailNotValid, "email");
+    }
+
+    if (!userPassword) {
+      handleSetFormError(labelPasswordRequired, "password");
+    }
+    
+    if (valid) {
+      makeHttpSignUpRequest();
     }
 
   }
@@ -73,13 +61,14 @@ export default function SignUpPage() {
     setLoading(true);
     try {
       const user = await register({
-        userName,
+        username,
         email: userEmail,
         password: userPassword
       })
+      router.push('/signin');
       return user;
     } catch (error) {
-      console.error(error)
+      console.error(error.errors)
     } finally {
       setLoading(false);
     }
@@ -89,9 +78,7 @@ export default function SignUpPage() {
     e.preventDefault();
     cleanErrorMessages();
     validateForm();
-    if (formValid) {
-      makeHttpSignUpRequest();
-    }
+    
   }
 
   return (
@@ -107,7 +94,7 @@ export default function SignUpPage() {
             type="text"
             className={inputStyles["input"]}
             onChange={(e) => setUserName(e.currentTarget.value)}
-            defaultValue={userName}
+            defaultValue={username}
           />
         </label>
         <label htmlFor="email">

@@ -4,8 +4,8 @@ export interface UserState {
   userInfo: {
     email: string;
     id: string;
-    proteinAmount: [{ quantity: number | null}];
-    proteinTarget: Array<object>;
+    proteinAmount: [{ quantity: number, createdAt: string, id: string, belongsToId: string }];
+    proteinTarget: [{ id: string, target: number, createdAt: string, belongingTo: string }];
     username: string;
   };
 }
@@ -14,8 +14,8 @@ const initialState: UserState = {
   userInfo: {
     email: '',
     id: '',
-    proteinAmount: [{ quantity: null }],
-    proteinTarget: [],
+    proteinAmount: [{ quantity: 0, createdAt: '', id: '', belongsToId: '' }],
+    proteinTarget: [{ id: '', target: 0, createdAt: '', belongingTo: '' }],
     username: ''
   }
 };

@@ -1,3 +1,5 @@
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+
 type FetcherType = {
   url: string,
   method: string,
