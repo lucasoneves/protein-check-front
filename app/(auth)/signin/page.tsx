@@ -11,6 +11,7 @@ import { signin } from '@/lib/api';
 import { redirect, useRouter } from 'next/navigation'
 import { labelEmailNotValid, labelEmailRequired, labelFormErrorLogin, labelPasswordRequired } from "@/lib/text";
 import { Toast } from "@/components/Toast";
+import Loading from "@/components/Loading";
 
 
 export default function SignInPage() {
@@ -135,7 +136,7 @@ export default function SignInPage() {
         <Link className={styles["link"]} href="/recoverpassword">
           Esqueci minha senha
         </Link>
-        <Button disabled={loading}>{loading ? "Loading..." : "Entrar"}</Button>
+        <Button disabled={loading}>{loading ? <Loading small /> : "Entrar"}</Button>
       </form>
       <p className={styles["signup-link"]}>
         Não tem uma conta? <Link href="/signup">Cadastre-se</Link>
