@@ -24,7 +24,6 @@ export default function CardHighlights() {
     if (totalTarget === 0) {
       return `${0}%`;
     }
-    // (total * amount) / target
 
     return `${totalPercentage.toFixed(1)}%`
   }
@@ -51,6 +50,9 @@ export default function CardHighlights() {
             {proteinPercentageToday()}
           </span>
         </h3>
+        <div className="w-full h-3 bg-gray-500 rounded-lg">
+          <span className=" bg-cyan-500 h-3 max-w-full block rounded-lg rounded-r-none" style={{width: proteinPercentageToday()}}></span>
+        </div>
       </Card>
     </>
   );
