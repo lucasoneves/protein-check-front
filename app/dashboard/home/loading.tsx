@@ -1,5 +1,4 @@
-const Loading = () => {
-  return <div>Loading...</div>
+import Loading from "@/components/Loading";
+export default function LoadingApp() {
+  return <Loading />
 }
-
-export default Loading;

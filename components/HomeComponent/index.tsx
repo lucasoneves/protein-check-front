@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import CardDailyList from "@/components/CardDailyList";
 import CardHighlights from "@/components/CardHighlights";
 import { useEffect, useState } from "react";
-import Loading from "../Loading";
+import Loading from "@/components/Loading";
 
 export default function HomeComponent() {
   const dispatch = useAppDispatch();

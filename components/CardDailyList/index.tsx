@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { ProteinIten } from '@/lib/types';
 import EditProtein from '../EditItem';
 import CardDaily from '../CardDaily';
+import CardEmpty from '../CardEmpty';
 
 export default function CardDailyList() {
   const userInfo = useAppSelector((state) => state.userReducer.userInfo);
@@ -45,7 +46,7 @@ export default function CardDailyList() {
     <div
       className={`${styles["wrapper-report"]} flex flex-col gap-3 justify-evenly`}
     >
-      {userInfo.proteinAmount.map((item) =>
+      {userInfo.proteinAmount.length > 0 ? userInfo.proteinAmount.map((item) =>
         item.id === itemEditting.id ? (
           <EditProtein
             saveAction={() => handleSaveItem(item)}
@@ -70,7 +71,7 @@ export default function CardDailyList() {
             handleDelete={() => deleteCard(item)}
           />
         )
-      )}
+      ) : <CardEmpty />}
     </div>
   );
 }
