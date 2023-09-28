@@ -15,17 +15,20 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const {username}  = useAppSelector((state) => state.userReducer.userInfo);
+  const { username } = useAppSelector((state) => state.userReducer.userInfo);
   return (
-    <main className={styles["layout"]}>
-      <Header userName={username} />
-      {children}
-      <footer className="fixed bottom-0 left-0 right-0 m-auto">
-        <Container containerClasses={"container-footer"}>
-          <AddProtein />
-          <MenuNav />
-        </Container>
-      </footer>
-    </main>
+    <>
+      <title>Protein Check</title>
+      <main className={styles["layout"]}>
+        <Header userName={username} />
+        {children}
+        <footer className="fixed bottom-0 left-0 right-0 m-auto">
+          <Container containerClasses={"container-footer"}>
+            <AddProtein />
+            <MenuNav />
+          </Container>
+        </footer>
+      </main>
+    </>
   );
 }

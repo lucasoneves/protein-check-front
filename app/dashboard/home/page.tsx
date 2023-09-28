@@ -1,4 +1,3 @@
-
 import HomeComponent from "@/components/HomeComponent";
 import Loading from "@/components/Loading";
 import { Suspense } from "react";

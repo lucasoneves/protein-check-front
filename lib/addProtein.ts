@@ -1,0 +1,21 @@
+import { fetcher } from "./fetcher";
+import Cookies from "js-cookie";
+
+const LOCAL = "http://localhost:3001"
+const DEV = "https://protein-tracker-api.onrender.com"
+
+export const addProteinRequest = async (quantity: Number) => {
+  try {
+    return fetcher({
+      url: `${LOCAL}/api/proteinamount`,
+      method: "POST",
+      body: {
+        quantity
+      },
+      json: true,
+      token: Cookies.get("authToken")!
+    });
+  } catch (error) {
+    console.error('ADD_PROTEIN =>', error)
+  }
+};
