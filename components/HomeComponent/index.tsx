@@ -1,19 +1,16 @@
 "use client";
-import { Card } from "@/components/Card";
-// import { useEffect } from "react";
 import { getUserData } from "@/lib/api";
 import Cookies from "js-cookie";
 import { setUserInfo } from "@/app/store/userSlice";
 import { useAppDispatch } from "@/app/store/hooks";
-import { useRouter } from "next/navigation";
 import CardDailyList from "@/components/CardDailyList";
 import CardHighlights from "@/components/CardHighlights";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
+import Head from "next/head";
 
 export default function HomeComponent() {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   async function getDataUser() {
@@ -40,6 +37,9 @@ export default function HomeComponent() {
         <Loading />
       ) : (
         <main>
+          <Head>
+            <title>My page Title</title>
+          </Head>
           <h3 className="mt-5 font-bold">Overview</h3>
           <div className="grid sm:grid-cols-3 auto-cols-fr sm:gap-5 gap-2 mt-5 mb-5">
             <CardHighlights />

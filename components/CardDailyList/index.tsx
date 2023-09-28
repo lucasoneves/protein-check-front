@@ -36,7 +36,6 @@ export default function CardDailyList() {
     const hours = time.getHours();
     const minutes =
       time.getMinutes() <= 9 ? `0${time.getMinutes()}` : time.getMinutes();
-    console.log("Minutes ->", minutes);
     return `${hours}:${minutes}`;
   }
   function deleteCard(e: object) {

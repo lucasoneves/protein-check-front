@@ -28,10 +28,16 @@ export const userSlice = createSlice({
       if (action.payload) {
         state.userInfo = action.payload;
       }
+    },
+
+    setProteinAdded(state, action) {
+      if (action.payload) {
+        state.userInfo.proteinAmount.push(action.payload);
+      }
     }
   }
 });
 
-export const { setUserInfo } = userSlice.actions;
+export const { setUserInfo, setProteinAdded } = userSlice.actions;
 
 export default userSlice.reducer;

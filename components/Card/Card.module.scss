@@ -1,3 +1,7 @@
 .card {
   background: #222;
 }
+
+.success {
+  background: linear-gradient(to bottom right, var(--success), var(--success-lighten)) ;
+}
