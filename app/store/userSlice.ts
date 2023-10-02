@@ -35,10 +35,14 @@ export const userSlice = createSlice({
       if (action.payload) {
         state.userInfo.proteinAmount.push(action.payload);
       }
+    },
+
+    setNewTargetDaily(state, action) {
+      state.userInfo.proteinTarget[0].target = action.payload
     }
   }
 });
 
-export const { setUserInfo, setProteinAdded } = userSlice.actions;
+export const { setUserInfo, setProteinAdded, setNewTargetDaily } = userSlice.actions;
 
 export default userSlice.reducer;
