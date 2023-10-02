@@ -7,11 +7,13 @@ import CardDailyList from "@/components/CardDailyList";
 import CardHighlights from "@/components/CardHighlights";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
+import { useRouter } from "next/navigation";
 import Head from "next/head";
 
 export default function HomeComponent() {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const router = useRouter();
 
   async function getDataUser() {
     

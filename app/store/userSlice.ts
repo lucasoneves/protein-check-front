@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { REHYDRATE } from 'redux-persist'
 
 export interface UserState {
   userInfo: {
