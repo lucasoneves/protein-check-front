@@ -1,41 +1,80 @@
 "use client";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import styles from "./UpdateTargetComponent.module.scss";
 import { updateProteinTarget } from "@/lib/proteinTarget";
 import Loading from "../Loading";
-import { useAppSelector } from "@/app/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/app/store/hooks";
 import { Toast } from "../Toast";
+import { useRouter } from "next/navigation";
+import { setNewTargetDaily } from "@/app/store/userSlice";
+
+enum MessageType {
+  Null = "",
+  Error = "error",
+  Success = "success",
+}
+
+type MessageFeedBackTypes = {
+  type: MessageType;
+  message: string;
+};
 
 export default function UpdateTargetComponent() {
-  const [target, setTarget] = useState<Number>(0);
+  const [newTarget, setNewTarget] = useState<number>(0);
   const [loading, setLoading] = useState(false);
-  const [messageFeedback, setMessageFeedback] = useState("");
-  const id = useAppSelector((state) => state.userReducer.userInfo.proteinTarget[0].id);
+  const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({
+    type: MessageType.Null,
+    message: "",
+  });
+  const { id, target } = useAppSelector(
+    (state) => state.userReducer.userInfo.proteinTarget[0]
+  );
+
+  function cleanErrorMessage() {
+    setMessageFeedback({ type: MessageType.Null, message: "" });
+  }
+
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   async function handleUpdateProteinTarget(e: FormEvent) {
     e.preventDefault();
 
-    if (target) {
+    if (newTarget) {
       try {
         setLoading(true);
-        const req = await updateProteinTarget(target, id);
-        const data = await req.json();
-        if (req.status === 201) {
-          setMessageFeedback("Meta atualizada com sucesso!")
-        }
+        const data = await updateProteinTarget(newTarget, id);
+        setMessageFeedback({
+          type: MessageType.Success,
+          message: "Updated successfully",
+        });
+        dispatch(setNewTargetDaily(newTarget));
         return data;
       } catch (error) {
+        setMessageFeedback({
+          type: MessageType.Error,
+          message: "Error updating protein target",
+        });
         console.error("Create Protein Target Failed", error);
       } finally {
         setLoading(false);
+        setTimeout(() => {
+          cleanErrorMessage();
+        }, 3000)
+
       }
+    } else {
+      setMessageFeedback({ type: MessageType.Error, message: "Mininal target is 1" })
     }
+
   }
   return (
     <>
       <h2 className="mt-5">Meta de proteína diária</h2>
-        <Toast>
-          <span>{messageFeedback}</span>
+      {messageFeedback.message && (
+        <Toast messageType={messageFeedback.type}>
+          <span>{messageFeedback.message}</span>
         </Toast>
+      )}
       {loading ? (
         <Loading />
       ) : (
@@ -48,11 +87,11 @@ export default function UpdateTargetComponent() {
             <input
               maxLength={99}
               type="number"
-              onChange={(e) => setTarget(+e.target.value)}
+              onChange={(e) => setNewTarget(+e.target.value)}
               placeholder="Digite a quantidade de proteína"
               id="protein"
               className="w-full outline-0 p-4 bg-transparent rounded-lg text-real-black"
-              defaultValue={+target || ""}
+              defaultValue={target}
             />
           </label>
           <button className="block mt-5 p-3 bg-blue-600 rounded-lg max-sm:w-full w-36">
