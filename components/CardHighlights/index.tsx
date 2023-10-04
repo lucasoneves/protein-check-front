@@ -19,8 +19,8 @@ export default function CardHighlights() {
   const pathname = usePathname();
 
   useEffect(() => {
-    console.log(pathname)
-  })
+    console.log(pathname);
+  });
 
   function proteinTarget() {
     return `${totalTarget}g`;
@@ -52,9 +52,14 @@ export default function CardHighlights() {
           Your daily goal:{" "}
           <span className="text-2xl block font-bold">{proteinTarget()}</span>
         </h3>
-        <Link href={`/dashboard/update-target`} className="absolute top-3 block right-3"><MdOutlineSettings /></Link>
+        <Link
+          href={`/dashboard/update-target`}
+          className="absolute top-3 block right-3"
+        >
+          <MdOutlineSettings />
+        </Link>
       </Card>
-      {totalPercentage >= 100 ? (
+      {totalPercentage >= 100 && userInfo.proteinTarget.length ? (
         <Card
           className="card-target text-sm flex justify-center items-center flex-col gap-2 text-center"
           success
@@ -63,20 +68,22 @@ export default function CardHighlights() {
           <strong>Parabéns!</strong> Você atingiu sua meta diária!
         </Card>
       ) : (
-        <Card className="sm:p-8 p-12">
-          <h3 className="flex items-center justify-center flex-col text-sm">
-            Progress:{" "}
-            <span className="text-2xl block font-bold">
-              {proteinPercentageToday()}
-            </span>
-          </h3>
-          <div className="w-full h-3 bg-gray-500 rounded-lg overflow-hidden">
-            <span
-              className=" bg-cyan-500 h-3 max-w-full block rounded-lg rounded-r-none"
-              style={{ width: proteinPercentageToday() }}
-            ></span>
-          </div>
-        </Card>
+        userInfo.proteinTarget.length > 0 && (
+          <Card className="sm:p-8 p-12">
+            <h3 className="flex items-center justify-center flex-col text-sm">
+              Progress:{" "}
+              <span className="text-2xl block font-bold">
+                {proteinPercentageToday()}
+              </span>
+            </h3>
+            <div className="w-full h-3 bg-gray-500 rounded-lg overflow-hidden">
+              <span
+                className=" bg-cyan-500 h-3 max-w-full block rounded-lg rounded-r-none"
+                style={{ width: proteinPercentageToday() }}
+              ></span>
+            </div>
+          </Card>
+        )
       )}
     </>
   );

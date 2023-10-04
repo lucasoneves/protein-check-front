@@ -8,3 +8,14 @@ export type ProteinIten = {
   quantity: number;
   id: string | null;
 };
+
+export enum MessageType {
+  Null = "",
+  Error = "error",
+  Success = "success",
+}
+
+export type MessageFeedBackTypes = {
+  type: MessageType;
+  message: string;
+};

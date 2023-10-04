@@ -1,0 +1,16 @@
+.form {
+  background-color: #222;
+
+  input {
+    background-color: rgba(52, 52, 52, 0.5);
+    color: white;
+  }
+  button {
+    background-color: var(--savana);
+    font-weight: bold;
+
+    &:hover {
+      opacity: .95;
+    }
+  }
+}
