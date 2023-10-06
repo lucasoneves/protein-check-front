@@ -23,7 +23,8 @@ export default function FormProteinTarget() {
     if (currentTarget.length) {
       setNewTarget(currentTarget[0].target)
     }
-  }, [])
+    console.log(currentTarget)
+  }, [currentTarget])
 
   const dispatch = useAppDispatch();
   async function handleUpdateProteinTarget(e: FormEvent) {
@@ -32,15 +33,15 @@ export default function FormProteinTarget() {
     if (newTarget > 0) {
       try {
         setLoading(true);
-        const data = !currentTarget.length
+        const response = !currentTarget.length
           ? await createProteinTarget(newTarget)
           : await updateProteinTarget(newTarget, currentTarget[0].id);
         setMessageFeedback({
           type: MessageType.Success,
           message: "Updated successfully",
         });
-        dispatch(setNewTargetDaily(newTarget));
-        return data;
+        dispatch(setNewTargetDaily({ ...response.data }))
+        return response;
       } catch (error) {
         setMessageFeedback({
           type: MessageType.Error,

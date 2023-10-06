@@ -38,7 +38,8 @@ export const userSlice = createSlice({
     },
 
     setNewTargetDaily(state, action) {
-      state.userInfo.proteinTarget[0].target = action.payload
+      console.log("PAYLOAD -> ", action.payload)
+      state.userInfo.proteinTarget = [{...action.payload}]
     }
   }
 });
