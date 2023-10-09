@@ -1,5 +1,5 @@
 "use client";
-import { MouseEventHandler, ReactNode } from "react";
+import { FormEventHandler, MouseEventHandler, ReactNode } from "react";
 import { Card } from "../Card";
 import { MdOutlineCancel, MdCheckCircle } from "react-icons/md";
 
@@ -12,7 +12,7 @@ export default function EditProtein({
 }: {
   children: ReactNode;
   cancelAction: MouseEventHandler;
-  saveAction: MouseEventHandler;
+  saveAction?: MouseEventHandler | FormEventHandler;
 }) {
   return (
     <Card className="flex items-center justify-between gap-2 h-16">
