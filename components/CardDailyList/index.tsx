@@ -58,10 +58,6 @@ export default function CardDailyList() {
   function deleteCard(e: object) {
     console.log(e);
   }
-
-  useEffect(() => {
-    console.log(itemEditting.quantity);
-  }, [itemEditting]);
   return (
     <>
       <div
