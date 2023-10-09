@@ -1,7 +1,7 @@
 "use client";
 import styles from '@/app/dashboard/home/Home.module.scss';
-import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import { useState } from 'react';
+import { useAppSelector } from "@/app/store/hooks";
+import { ChangeEvent, useEffect, useState } from 'react';
 import { ProteinIten } from '@/lib/types';
 import EditProtein from '../EditItem';
 import CardDaily from '../CardDaily';
@@ -21,17 +21,18 @@ export default function CardDailyList() {
     setItemEditting(e);
   }
   function handleSaveItem(item: object) {
-    console.log(item);
+    console.log("Saave item", itemEditting);
   }
   function handleCancelEditing() {
     setItemEditting(initialState);
   }
-  function handleEdit(event: { target: HTMLInputElement; event: Event }) {
-    const target = (event.target as HTMLInputElement).value;
+  function handleEdit(event: ChangeEvent<HTMLInputElement>) {
+    const target = event.target.value;
     setItemEditting((prevState) => {
-      return { ...prevState, target: target };
+      return { ...prevState, quantity: +target };
     });
   }
+
   function formatDate(time: Date) {
     const hours = time.getHours();
     const minutes =
@@ -41,6 +42,10 @@ export default function CardDailyList() {
   function deleteCard(e: object) {
     console.log(e);
   }
+
+  useEffect(() => {
+    console.log(itemEditting.quantity)
+  }, [itemEditting])
   return (
     <div
       className={`${styles["wrapper-report"]} flex flex-col gap-3 justify-evenly`}
@@ -54,7 +59,7 @@ export default function CardDailyList() {
           >
             <input
               type="text"
-              onChange={() => handleEdit}
+              onChange={handleEdit}
               className="p-2 bg-transparent border border-gray-400 rounded-lg text-sm"
               autoFocus
               defaultValue={itemEditting.quantity}
