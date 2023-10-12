@@ -7,6 +7,10 @@ import EditProtein from "../EditItem";
 import CardDaily from "../CardDaily";
 import CardEmpty from "../CardEmpty";
 import { Toast } from "../Toast";
+import { editProteinRequest } from "@/lib/addProtein";
+import Loading from "../Loading";
+import { setProteinEdited } from "@/app/store/userSlice";
+import { useAppDispatch } from "@/app/store/hooks";
 
 export default function CardDailyList() {
   const userInfo = useAppSelector((state) => state.userReducer.userInfo);
@@ -15,12 +19,14 @@ export default function CardDailyList() {
     quantity: 0,
     id: null,
   };
+  const [loading, setLoading] = useState<boolean>(false);
   const [itemEditting, setItemEditting] = useState<ProteinIten>(initialState);
   const [isEditing, setIsEditting] = useState(false);
   const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({
     type: MessageType.Null,
     message: "",
   });
+  const dispatch = useAppDispatch();
   function editCard(e: ProteinIten) {
     setIsEditting(true);
     setItemEditting(e);
@@ -35,8 +41,7 @@ export default function CardDailyList() {
       });
       return;
     }
-
-    console.log("SALVAR NOVO VALOR", quantity);
+    saveEditedProtein()
     setMessageFeedback({message: '', type: MessageType.Null})
   }
   function handleCancelEditing() {
@@ -57,6 +62,22 @@ export default function CardDailyList() {
   }
   function deleteCard(e: object) {
     console.log(e);
+  }
+
+  async function saveEditedProtein() {
+    try {
+      setLoading(true)
+      const req = await editProteinRequest(itemEditting.quantity, itemEditting.id)
+      setMessageFeedback({message: "Updated Successfully", type: MessageType.Success})
+      handleCancelEditing()
+      dispatch(setProteinEdited(req.data.updated));
+      return req;
+    } catch (error) {
+      console.error("Error on EditProtein", error)
+      setMessageFeedback({message: "Error trying to update", type: MessageType.Error})
+    } finally {
+      setLoading(false)
+    }
   }
   return (
     <>
@@ -108,6 +129,7 @@ export default function CardDailyList() {
           <p>{messageFeedback.message}</p>
         </Toast>
       )}
+      {loading && <Loading /> }
     </>
   );
 }
