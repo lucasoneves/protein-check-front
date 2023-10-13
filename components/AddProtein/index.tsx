@@ -1,5 +1,5 @@
 "use client";
-import { EventHandler, FormEvent, ReactEventHandler } from "react";
+import { FormEvent } from "react";
 import styles from "./AddProtein.module.scss";
 import { VscAdd } from "react-icons/vsc";
 import { useState } from "react";
@@ -7,10 +7,13 @@ import { addProteinRequest } from "@/lib/addProtein";
 import Loading from "../Loading";
 import { useAppDispatch } from "@/app/store/hooks";
 import { setProteinAdded } from "@/app/store/userSlice";
+import { MessageFeedBackTypes, MessageType } from "@/lib/types";
+import { Toast } from "../Toast";
 
 export default function AddProtein() {
   const [amount, setAmount] = useState<Number>(0);
   const [loading, setLoading] = useState<Boolean>(false);
+  const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({message: '', type: MessageType.Null});
 
   const dispatch = useAppDispatch();
 
@@ -20,11 +23,16 @@ export default function AddProtein() {
     try {
       const { data } = await addProteinRequest(amount);
       dispatch(setProteinAdded(data.proteinAmount))
+      setMessageFeedback({message: "Protein added", type: MessageType.Success})
     } catch (error) {
       console.error(error);
+      setMessageFeedback({message: "Error on add protein", type: MessageType.Error})
     } finally {
       setLoading(false);
       setAmount(0);
+      setTimeout(() => {
+        setMessageFeedback({message: '', type: MessageType.Null})
+      }, 3000)
     }
   }
   function changedProteinAmount(e: FormEvent) {
@@ -53,6 +61,16 @@ export default function AddProtein() {
           {loading ? <Loading small/> : <VscAdd />}
         </button>
       </form>
+      {messageFeedback.type === MessageType.Error && (
+        <Toast messageType={MessageType.Error}>
+          <p>{messageFeedback.message}</p>
+        </Toast>
+      )}
+      {messageFeedback.type === MessageType.Success && (
+        <Toast messageType={MessageType.Success}>
+          <p>{messageFeedback.message}</p>
+        </Toast>
+      )}
     </div>
   );
 }
