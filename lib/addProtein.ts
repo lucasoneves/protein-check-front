@@ -35,3 +35,17 @@ export const editProteinRequest = async (quantity: Number, id: string | null) =>
     console.error('ADD_PROTEIN =>', error)
   }
 };
+
+export const deleteProteinRequest = async (id: string | null) => {
+  try {
+    return fetcher({
+      url: `${LOCAL}/api/proteinamount/${id}`,
+      method: "DELETE",
+      body: null,
+      json: true,
+      token: Cookies.get("authToken")!
+    });
+  } catch (error) {
+    console.error('ADD_PROTEIN =>', error)
+  }
+};

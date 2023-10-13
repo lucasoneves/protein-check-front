@@ -10,6 +10,11 @@
   font-weight: bold;
 
   &:hover {
-    opacity: .9;
+    opacity: 0.9;
   }
+}
+
+.is-flat {
+  background-color: lightgray;
+  color: black;
 }

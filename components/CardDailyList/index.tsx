@@ -7,10 +7,12 @@ import EditProtein from "../EditItem";
 import CardDaily from "../CardDaily";
 import CardEmpty from "../CardEmpty";
 import { Toast } from "../Toast";
-import { editProteinRequest } from "@/lib/addProtein";
+import { deleteProteinRequest, editProteinRequest } from "@/lib/addProtein";
 import Loading from "../Loading";
-import { setProteinEdited } from "@/app/store/userSlice";
+import { setProteinDeleted, setProteinEdited } from "@/app/store/userSlice";
 import { useAppDispatch } from "@/app/store/hooks";
+import Modal from "../ModalComponent";
+import { Button } from "../Button";
 
 export default function CardDailyList() {
   const userInfo = useAppSelector((state) => state.userReducer.userInfo);
@@ -26,6 +28,7 @@ export default function CardDailyList() {
     type: MessageType.Null,
     message: "",
   });
+  const [modalDelete, setModalDelete] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   function editCard(e: ProteinIten) {
     setIsEditting(true);
@@ -41,8 +44,8 @@ export default function CardDailyList() {
       });
       return;
     }
-    saveEditedProtein()
-    setMessageFeedback({message: '', type: MessageType.Null})
+    saveEditedProtein();
+    setMessageFeedback({ message: "", type: MessageType.Null });
   }
   function handleCancelEditing() {
     setItemEditting(initialState);
@@ -60,23 +63,48 @@ export default function CardDailyList() {
       time.getMinutes() <= 9 ? `0${time.getMinutes()}` : time.getMinutes();
     return `${hours}:${minutes}`;
   }
-  function deleteCard(e: object) {
-    console.log(e);
+  function deleteCard() {
+    setModalDelete(true);
+  }
+  async function confirmDeleteCard(item: ProteinIten) {
+    try {
+      setLoading(true);
+      console.log(item.id);
+      const data = await deleteProteinRequest(item.id);
+      dispatch(setProteinDeleted(item));
+      return data;
+    } catch (error) {
+      console.error("Error on deleting protein", error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function saveEditedProtein() {
     try {
-      setLoading(true)
-      const req = await editProteinRequest(itemEditting.quantity, itemEditting.id)
-      setMessageFeedback({message: "Updated Successfully", type: MessageType.Success})
-      handleCancelEditing()
+      setLoading(true);
+      const req = await editProteinRequest(
+        itemEditting.quantity,
+        itemEditting.id
+      );
+      setMessageFeedback({
+        message: "Updated Successfully",
+        type: MessageType.Success,
+      });
+      handleCancelEditing();
       dispatch(setProteinEdited(req.data.updated));
       return req;
     } catch (error) {
-      console.error("Error on EditProtein", error)
-      setMessageFeedback({message: "Error trying to update", type: MessageType.Error})
+      console.error("Error on EditProtein", error);
+      setMessageFeedback({
+        message: "Error trying to update",
+        type: MessageType.Error,
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
+      setTimeout(() => {
+        setMessageFeedback({ message: "", type: MessageType.Null });
+      }, 3000);
     }
   }
   return (
@@ -129,7 +157,19 @@ export default function CardDailyList() {
           <p>{messageFeedback.message}</p>
         </Toast>
       )}
-      {loading && <Loading /> }
+      {!modalDelete ? (
+        <Modal>
+          <h3 className="font-bold text-lg">Tem certeza que deseja excluir o item?</h3>
+          <span>Essa ação é irreversível</span>
+          <div className="flex gap-2 mt-6">
+            <Button isFlat disabled={false}>Cancelar</Button>
+            <Button disabled={false}>Confirmar</Button>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
+      {loading && <Loading />}
     </>
   );
 }

@@ -38,11 +38,17 @@ export const userSlice = createSlice({
     },
 
     setProteinEdited(state, action) {
-      const updated = (element: any) => element.id ===  action.payload.id
+      const updated = (element: any) => element.id === action.payload.id
       const index = state.userInfo.proteinAmount.findIndex(updated);
       console.log(index);
       
       state.userInfo.proteinAmount[index] = action.payload
+    },
+
+    setProteinDeleted(state, action) {
+      const deleted = (element: any) => element.id === action.payload.id
+      const index = state.userInfo.proteinAmount.findIndex(deleted);
+      state.userInfo.proteinAmount.splice(index, 1)
     },
 
     setNewTargetDaily(state, action) {
@@ -52,6 +58,6 @@ export const userSlice = createSlice({
   }
 });
 
-export const { setUserInfo, setProteinAdded, setProteinEdited, setNewTargetDaily } = userSlice.actions;
+export const { setUserInfo, setProteinAdded, setProteinEdited, setProteinDeleted, setNewTargetDaily } = userSlice.actions;
 
 export default userSlice.reducer;
