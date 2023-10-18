@@ -40,8 +40,6 @@ export const userSlice = createSlice({
     setProteinEdited(state, action) {
       const updated = (element: any) => element.id === action.payload.id
       const index = state.userInfo.proteinAmount.findIndex(updated);
-      console.log(index);
-      
       state.userInfo.proteinAmount[index] = action.payload
     },
 
@@ -52,7 +50,6 @@ export const userSlice = createSlice({
     },
 
     setNewTargetDaily(state, action) {
-      console.log("PAYLOAD -> ", action.payload)
       state.userInfo.proteinTarget = [{...action.payload}]
     }
   }

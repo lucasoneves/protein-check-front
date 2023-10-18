@@ -1,7 +1,15 @@
 "use client";
 import styles from "@/app/dashboard/home/Home.module.scss";
 import { useAppSelector } from "@/app/store/hooks";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  EventHandler,
+  FormEvent,
+  ReactEventHandler,
+  SyntheticEvent,
+  useEffect,
+  useState,
+} from "react";
 import { MessageFeedBackTypes, MessageType, ProteinIten } from "@/lib/types";
 import EditProtein from "../EditItem";
 import CardDaily from "../CardDaily";
@@ -23,6 +31,7 @@ export default function CardDailyList() {
   };
   const [loading, setLoading] = useState<boolean>(false);
   const [itemEditting, setItemEditting] = useState<ProteinIten>(initialState);
+  const [itemToDelete, setItemToDelete] = useState<ProteinIten>(initialState);
   const [isEditing, setIsEditting] = useState(false);
   const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({
     type: MessageType.Null,
@@ -63,20 +72,32 @@ export default function CardDailyList() {
       time.getMinutes() <= 9 ? `0${time.getMinutes()}` : time.getMinutes();
     return `${hours}:${minutes}`;
   }
-  function deleteCard() {
+  function deleteCard(item: ProteinIten) {
     setModalDelete(true);
+    setItemToDelete(item);
   }
-  async function confirmDeleteCard(item: ProteinIten) {
+  function cancelDeleteCard() {
+    setModalDelete(false);
+    setItemToDelete(initialState);
+  }
+  async function confirmDeleteCard() {
     try {
       setLoading(true);
-      console.log(item.id);
-      const data = await deleteProteinRequest(item.id);
-      dispatch(setProteinDeleted(item));
+      const data = await deleteProteinRequest(itemToDelete.id);
+      dispatch(setProteinDeleted(itemToDelete));
       return data;
     } catch (error) {
       console.error("Error on deleting protein", error);
+      setMessageFeedback({
+        message: "Error on deleting protein",
+        type: MessageType.Error,
+      });
     } finally {
       setLoading(false);
+      cancelDeleteCard();
+      setTimeout(() => {
+        setMessageFeedback({ message: "", type: MessageType.Null });
+      }, 3000);
     }
   }
 
@@ -157,13 +178,17 @@ export default function CardDailyList() {
           <p>{messageFeedback.message}</p>
         </Toast>
       )}
-      {!modalDelete ? (
+      {modalDelete ? (
         <Modal>
-          <h3 className="font-bold text-lg">Tem certeza que deseja excluir o item?</h3>
+          <h3 className="font-bold text-lg">
+            Tem certeza que deseja excluir o item?
+          </h3>
           <span>Essa ação é irreversível</span>
           <div className="flex gap-2 mt-6">
-            <Button isFlat disabled={false}>Cancelar</Button>
-            <Button disabled={false}>Confirmar</Button>
+            <Button handleClick={cancelDeleteCard} isFlat>
+              Cancelar
+            </Button>
+            <Button handleClick={confirmDeleteCard}>Confirmar</Button>
           </div>
         </Modal>
       ) : (

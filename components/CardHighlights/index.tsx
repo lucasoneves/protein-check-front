@@ -3,8 +3,6 @@ import { Card } from "../Card";
 import { useAppSelector } from "@/app/store/hooks";
 import Link from "next/link";
 import { MdOutlineSettings, MdOutlineVerified } from "react-icons/md";
-import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 export default function CardHighlights() {
   const userInfo = useAppSelector((state) => state.userReducer.userInfo);
@@ -15,12 +13,6 @@ export default function CardHighlights() {
   const isTargetCreated = userInfo.proteinTarget.length;
   const totalTarget = isTargetCreated ? userInfo.proteinTarget[0].target : 0;
   const totalPercentage = (totalToday * 100) / totalTarget;
-
-  const pathname = usePathname();
-
-  useEffect(() => {
-    console.log(pathname);
-  });
 
   function proteinTarget() {
     return `${totalTarget}g`;
