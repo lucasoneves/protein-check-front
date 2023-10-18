@@ -1,17 +1,19 @@
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import styles from "./Button.module.scss";
 
 export const Button = ({
   children,
   disabled,
-  isFlat
+  isFlat,
+  handleClick
 }: {
   children: ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
   isFlat?: boolean;
+  handleClick: MouseEventHandler
 }) => {
   return (
-    <button disabled={disabled} className={`${styles["button"]} ${isFlat ? styles['is-flat'] : ''}`}>
+    <button onClick={handleClick} disabled={disabled} className={`${styles["button"]} ${isFlat ? styles['is-flat'] : ''}`}>
       {children}
     </button>
   );

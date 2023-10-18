@@ -1,4 +1,4 @@
-import { SignJWT, jwtVerify } from "jose";
+import { jwtVerify } from "jose";
 
 export const verifyJWT = async <T>(token: string): Promise<T> => {
   try {
@@ -9,7 +9,6 @@ export const verifyJWT = async <T>(token: string): Promise<T> => {
       )
     ).payload as T;
   } catch (error) {
-    console.log(error);
     throw new Error("Your token has expired.");
   }
 };

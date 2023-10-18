@@ -23,7 +23,6 @@ export default function FormProteinTarget() {
     if (currentTarget.length) {
       setNewTarget(currentTarget[0].target)
     }
-    console.log(currentTarget)
   }, [currentTarget])
 
   const dispatch = useAppDispatch();
