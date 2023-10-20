@@ -4,11 +4,11 @@ import inputStyle from "@/components/Input/Input.module.scss";
 import Link from "next/link";
 import Cookies from 'js-cookie'
 import { Button } from "@/components/Button/index";
-import { SetStateAction, useState } from "react";
-import { ErrorTypes } from "@/lib/types";
+import { useState } from "react";
+import { ErrorTypes, MessageType } from "@/lib/types";
 import { validateEmail } from "@/lib/validateEmail";
 import { signin } from '@/lib/api';
-import { redirect, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { labelEmailNotValid, labelEmailRequired, labelFormErrorLogin, labelPasswordRequired } from "@/lib/text";
 import { Toast } from "@/components/Toast";
 import Loading from "@/components/Loading";
@@ -127,7 +127,7 @@ export default function SignInPage() {
         {formError.length ? (
           <>
             {formError.map((d) => {
-              return <Toast key={d.message}>{d.message}</Toast>;
+              return <Toast messageType={MessageType.Error} key={d.message}>{d.message}</Toast>;
             })}
           </>
         ) : (

@@ -10,7 +10,7 @@ export const Button = ({
   children: ReactNode;
   disabled?: boolean;
   isFlat?: boolean;
-  handleClick: MouseEventHandler
+  handleClick?: MouseEventHandler
 }) => {
   return (
     <button onClick={handleClick} disabled={disabled} className={`${styles["button"]} ${isFlat ? styles['is-flat'] : ''}`}>
