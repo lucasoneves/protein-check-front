@@ -3,15 +3,19 @@ import Cookies from "js-cookie";
 import { useRouter} from 'next/navigation';
 import UserOptions from "../UserOptions";
 import UserOptionsNav from "../UserOptions/UserOptionsNav";
+import { useAppDispatch } from "@/app/store/hooks";
 import { useState } from "react";
+import { initialState, setUserInfo } from "@/app/store/userSlice";
 
 export default function Header({ userName }: { userName: string }) {
   const [settings, setSettings] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
   function showUserSettings() {
     setSettings(!settings);
   }
   function logout() {
+    dispatch(setUserInfo({...initialState.userInfo}))
     Cookies.remove('authToken');
     router.push('/signin');
   }
