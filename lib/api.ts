@@ -19,7 +19,7 @@ export const register = async (user: object) => {
 };
 
 export const signin = async (user: object) => {
-  
+
   try {
     return fetcher({
       url: `${local}/signin`,
@@ -34,12 +34,12 @@ export const signin = async (user: object) => {
   }
 };
 
-export const recoverPassword = async (email: object, token: string) => {
+export const recoverPassword = async (email: string, token: string) => {
   try {
     return fetcher({
-      url: "https://protein-tracker-api.onrender.com/forgot-password",
+      url: `${local}/forgot-password`,
       method: "POST",
-      body: email,
+      body: { email },
       json: true,
       token: token
     });

@@ -12,7 +12,7 @@ import { recoverPassword } from "@/lib/api";
 import Cookies from "js-cookie";
 
 export default function RecoverPassword() {
-  const [email, setEmail] = useState<String>('');
+  const [email, setEmail] = useState<string>('');
   const [formMessages, setFormMessages] = useState<ErrorTypes[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 

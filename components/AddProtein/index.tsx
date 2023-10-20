@@ -50,7 +50,7 @@ export default function AddProtein() {
       >
         <input
           maxLength={3}
-          className={`w-full bg-transparent border-0 outline-0 p-4 rounded-lg flex-1 ${styles["input"]}`}
+          className={`w-full border-0 outline-0 p-4 rounded-lg flex-1 ${styles["input"]}`}
           placeholder="Add protein"
           onChange={changedProteinAmount}
           value={+amount || ''}
