@@ -68,7 +68,7 @@ export default function SignUpPage() {
       router.push('/signin');
       return user;
     } catch (error) {
-      console.error(error.errors)
+      console.error(error)
     } finally {
       setLoading(false);
     }
