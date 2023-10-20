@@ -11,7 +11,7 @@ export interface UserState {
   };
 }
 
-const initialState: UserState = {
+export const initialState: UserState = {
   userInfo: {
     email: '',
     id: '',
