@@ -1,52 +1,63 @@
 "use client";
 import { Button } from "@/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
-import inputStyles from '@/components/Input/Input.module.scss';
+import inputStyles from "@/components/Input/Input.module.scss";
 import Link from "next/link";
 import { validateEmail } from "@/lib/validateEmail";
-import { useState } from "react";
-import { ErrorTypes } from "@/lib/types";
+import { useEffect, useState } from "react";
+import { ErrorTypes, MessageFeedBackTypes, MessageType } from "@/lib/types";
 import { labelEmailNotValid, labelEmailRequired } from "@/lib/text";
 import { ErrorBox } from "@/components/ErrorBox";
 import { recoverPassword } from "@/lib/api";
 import Cookies from "js-cookie";
+import Loading from "@/components/Loading";
+import { Toast } from "@/components/Toast";
 
 export default function RecoverPassword() {
-  const [email, setEmail] = useState<string>('');
-  const [formMessages, setFormMessages] = useState<ErrorTypes[]>([]);
+  const [email, setEmail] = useState<string>("");
+  const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({
+    type: MessageType.Null,
+    message: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
 
   function handleSetFormError(text: string, field: string) {
-    return setFormMessages((prevState) => [
-      ...prevState,
-      { message: text, field, touched: true },
-    ]);
+    setMessageFeedback({
+      type: MessageType.Error,
+      message: "Email not valid or empty",
+    });
   }
   function clearErrorMessages() {
-    setFormMessages([]);
+    setMessageFeedback({ type: MessageType.Null, message: "" });
   }
   function emailHandler(e: any) {
     clearErrorMessages();
-    setEmail(e.target.value)
+    setEmail(e.target.value);
   }
-  function handleSubmit(e: any) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
     clearErrorMessages();
     if (!validateEmail(email)) {
       handleSetFormError(labelEmailNotValid, "email");
     } else {
-      setLoading(true);
       try {
-        const req = recoverPassword(email, Cookies.get('authToken')!)
+        setLoading(true);
+        const req = await recoverPassword(email, Cookies.get("authToken")!);
+        clearErrorMessages();
         return req;
       } catch (error) {
-        console.error(error)
+        setMessageFeedback({ type: MessageType.Error, message: 'Email not found' });
+        console.error(error);
       } finally {
         setLoading(false);
       }
     }
-    
+
+    setTimeout(() => {
+      clearErrorMessages();
+    }, 3000)
   }
+
   return (
     <div className={styles["signin"]}>
       <header>
@@ -56,20 +67,29 @@ export default function RecoverPassword() {
       <form action="" onSubmit={handleSubmit}>
         <label htmlFor="email">
           Email
-          <input className={inputStyles['input']} type="text" onChange={emailHandler} />
+          <input
+            className={inputStyles["input"]}
+            type="text"
+            onChange={emailHandler}
+          />
         </label>
-        {formMessages.length ? (
-          <ErrorBox>
-            {formMessages.map((d) => {
-              return <p className="mb-2 last:mb-0 text-xs" key={d.message + Math.random()}>{d.message}</p>;
-            })}
-          </ErrorBox>
+        {messageFeedback.type === MessageType.Error ? (
+          <Toast messageType={MessageType.Error}>
+            <p>{messageFeedback.message}</p>
+          </Toast>
+        ) : messageFeedback.type === MessageType.Success ? (
+          <Toast messageType={MessageType.Success}>
+            <p>{messageFeedback.message}</p>
+          </Toast>
         ) : (
           ""
         )}
         <Button disabled={loading}>{loading ? "Enviando..." : "Enviar"}</Button>
       </form>
-      <Link className="mt-10 inline-flex" href={'/signin'}>Voltar</Link>
+      <Link className="mt-10 inline-flex" href={"/signin"}>
+        Voltar
+      </Link>
+      {loading && <Loading />}
     </div>
   );
 }

@@ -12,6 +12,11 @@
   &:hover {
     opacity: 0.9;
   }
+
+  &:disabled {
+    opacity: .2;
+    cursor: not-allowed;
+  }
 }
 
 .is-flat {
