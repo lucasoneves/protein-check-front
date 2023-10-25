@@ -18,7 +18,15 @@ export const fetcher = async ({ url, method, body, json = true, token }: Fetcher
   });
 
   if (!res.ok) {
-    throw new Error("API Error");
+    throw new Error(`Api Error -> ${res.status}`);
+  }
+
+  if (res.status === 204) {
+    return {
+      data: {
+        status: 204
+      }
+    };
   }
 
   if (json) {
