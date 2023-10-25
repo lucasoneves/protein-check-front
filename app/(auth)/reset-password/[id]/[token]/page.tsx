@@ -10,6 +10,7 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState<string>("");
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [loading, setLoading] =useState<boolean>(false);
 
   function handleSaveNewPassword(e: FormEvent) {
     e.preventDefault();
@@ -21,9 +22,15 @@ export default function ResetPassword() {
     setPasswordVisible(!passwordVisible);
   }
 
-  function handleSubmitPassword(e: FormEvent) {
+  async function handleSubmitPassword(e: FormEvent) {
     e.preventDefault();
+
+    // Make the request to the server
     console.log(newPassword);
+  }
+
+  function iconVisualizePassword() {
+    return !passwordVisible ? <VscEye size={20} /> : <VscEyeClosed size={20}/>
   }
 
   return (
@@ -45,13 +52,12 @@ export default function ResetPassword() {
             onClick={handlePasswordVisible}
             className="absolute bottom-4 m-auto right-2 cursor-pointer"
           >
-            {!passwordVisible ? <VscEye size={20} /> : <VscEyeClosed size={20}/>}
+            {iconVisualizePassword()}
           </span>
         </label>
         <span className="text-xs mt-2">*Mínimo de 6 caracteres</span>
-        {newPassword.length >= 6 && (
-          <Button>{false ? <Loading /> : "Salvar"}</Button>
-        )}
+        <Button disabled={newPassword.length < 6}>Salvar</Button>
+        {loading && <Loading />}
       </form>
     </div>
   );
