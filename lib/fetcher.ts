@@ -3,7 +3,7 @@ type FetcherType = {
   method: string,
   body: object | null,
   json: boolean,
-  token: string | null
+  token?: string | null
 }
 
 export const fetcher = async ({ url, method, body, json = true, token }: FetcherType) => {

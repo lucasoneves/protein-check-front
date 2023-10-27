@@ -49,6 +49,20 @@ export const recoverPassword = async (email: string, token: string) => {
   }
 }
 
+export const resetPassword = async (password: string, id: string, token: string) => {
+  try {
+    return fetcher({
+      url: `${local}/reset-password/${id}/${token}`,
+      method: "POST",
+      body: { password },
+      json: true
+    });
+  } catch (error) {
+    // Handle the error (e.g., show an error message)
+    console.error("Reset_password =>", error);
+  }
+}
+
 export const getUserData = async (tokenId: string) => {
   try {
     return fetcher({
