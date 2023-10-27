@@ -6,11 +6,24 @@ import inputStyle from "@/components/Input/Input.module.scss";
 import styles from "@/app/(auth)/Auth.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import { resetPassword } from "@/lib/api";
+import { useRouter } from "next/navigation";
+import { MessageFeedBackTypes, MessageType } from "@/lib/types";
+import { Toast } from "@/components/Toast";
 
-export default function ResetPassword() {
+type ParamsType = {
+  params: {
+    id: string;
+    token: string;
+  }
+}
+
+export default function ResetPassword({params}: ParamsType) {
   const [newPassword, setNewPassword] = useState<string>("");
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
   const [loading, setLoading] =useState<boolean>(false);
+  const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({message: '', type: MessageType.Null})
+  const router = params
 
   function handleSaveNewPassword(e: FormEvent) {
     e.preventDefault();
@@ -24,13 +37,28 @@ export default function ResetPassword() {
 
   async function handleSubmitPassword(e: FormEvent) {
     e.preventDefault();
-
-    // Make the request to the server
-    console.log(newPassword);
+    setLoading(true);
+    const { id, token } = params
+    try {
+      const res = await resetPassword(newPassword, id, token);
+      setMessageFeedback({message: "Senha atualizada com sucesso", type: MessageType.Success})
+      return res.data;
+    } catch (error) {
+      setMessageFeedback({message: "Houve um erro ao atualizar a senha", type: MessageType.Error})
+    } finally {
+      setLoading(false);
+      setTimeout(() => {
+        setMessageFeedback({message: '', type: MessageType.Null})
+      }, 3000)
+    }
   }
 
   function iconVisualizePassword() {
     return !passwordVisible ? <VscEye size={20} /> : <VscEyeClosed size={20}/>
+  }
+
+  function ToastMessages() {
+    return <Toast messageType={messageFeedback.type}>{messageFeedback.message}</Toast>
   }
 
   return (
@@ -58,6 +86,7 @@ export default function ResetPassword() {
         <span className="text-xs mt-2">*Mínimo de 6 caracteres</span>
         <Button disabled={newPassword.length < 6}>Salvar</Button>
         {loading && <Loading />}
+        {ToastMessages()}
       </form>
     </div>
   );
