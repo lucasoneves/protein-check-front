@@ -24,6 +24,15 @@ export default function ResetPassword({params}: ParamsType) {
   const [loading, setLoading] =useState<boolean>(false);
   const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({message: '', type: MessageType.Null})
   const router = params
+  const routerNav = useRouter();
+
+  useEffect(() => {
+    if (messageFeedback.type === MessageType.Success) {
+      setTimeout(() => {
+        routerNav.push('/signin')
+      }, 3000)
+    }
+  })
 
   function handleSaveNewPassword(e: FormEvent) {
     e.preventDefault();
