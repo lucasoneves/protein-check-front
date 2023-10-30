@@ -15,7 +15,7 @@ export default function Avatar({
       <h2 className="text-xs sm:text-sm">{userName && `Hello, ${userName}`}</h2>
       <div
         onClick={handleClick}
-        className="bg-slate-500 cursor-pointer font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm"
+        className="uppercase bg-slate-500 cursor-pointer font-bold w-8 h-8 flex items-center justify-center rounded-full text-sm"
       >
         {CONTAINS_BLANK_SPACE
           ? userName.substring(0, 1).toUpperCase()

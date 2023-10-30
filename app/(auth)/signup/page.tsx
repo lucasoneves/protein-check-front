@@ -69,18 +69,17 @@ export default function SignUpPage() {
   async function makeHttpSignUpRequest() {
     setLoading(true);
     try {
-      const user = await register({
+      const response = await register({
         username,
         email: userEmail,
         password: userPassword,
       });
-      console.log(user.data.status);
-      if (user.data.status === 204) {
+      if (response && response.data.status === 204) {
         setMessaageFeedback({ message: "Usuário ou e-mail já cadastrado", type: MessageType.Error})
         return;
       }
       router.push("/signin");
-      return user;
+      return response;
     } catch (error) {
       console.error(error);
       setMessaageFeedback({ message: "Houve um erro ao tentar cadastrar. Tente novamente!", type: MessageType.Error})
