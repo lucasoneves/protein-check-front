@@ -5,19 +5,25 @@ import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyles from "@/components/Input/Input.module.scss";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
-import { ErrorTypes } from "@/lib/types";
-import { labelEmailRequired, labelPasswordRequired, labelUsernameRequired, labelEmailNotValid } from "@/lib/text";
+import { ErrorTypes, MessageFeedBackTypes, MessageType } from "@/lib/types";
+import {
+  labelEmailRequired,
+  labelPasswordRequired,
+  labelUsernameRequired,
+  labelEmailNotValid,
+} from "@/lib/text";
 import { ErrorBox } from "@/components/ErrorBox";
 import { validateEmail } from "@/lib/validateEmail";
-import { register } from '@/lib/api';
+import { register } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { Toast } from "@/components/Toast";
 
 export default function SignUpPage() {
-
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [username, setUserName] = useState("");
   const [formMessages, setFormMessages] = useState<ErrorTypes[]>([]);
+  const [messaageFeedback, setMessaageFeedback] = useState<MessageFeedBackTypes>({ message: '', type: MessageType.Null})
   const [formValid, setFormValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -25,6 +31,9 @@ export default function SignUpPage() {
 
   function cleanErrorMessages() {
     setFormMessages([]);
+    setTimeout(() => {
+      setMessaageFeedback({message: '', type: MessageType.Null})
+    }, 3000)
   }
 
   async function handleSetFormError(text: string, field: string) {
@@ -35,7 +44,8 @@ export default function SignUpPage() {
   }
 
   function validateForm() {
-    const valid = username && userEmail && userPassword && validateEmail(userEmail);
+    const valid =
+      username && userEmail && userPassword && validateEmail(userEmail);
     if (!username) {
       handleSetFormError(labelUsernameRequired, "username");
     }
@@ -50,11 +60,10 @@ export default function SignUpPage() {
     if (!userPassword) {
       handleSetFormError(labelPasswordRequired, "password");
     }
-    
+
     if (valid) {
       makeHttpSignUpRequest();
     }
-
   }
 
   async function makeHttpSignUpRequest() {
@@ -63,12 +72,18 @@ export default function SignUpPage() {
       const user = await register({
         username,
         email: userEmail,
-        password: userPassword
-      })
-      router.push('/signin');
+        password: userPassword,
+      });
+      console.log(user.data.status);
+      if (user.data.status === 204) {
+        setMessaageFeedback({ message: "Usuário ou e-mail já cadastrado", type: MessageType.Error})
+        return;
+      }
+      router.push("/signin");
       return user;
     } catch (error) {
-      console.error(error)
+      console.error(error);
+      setMessaageFeedback({ message: "Houve um erro ao tentar cadastrar. Tente novamente!", type: MessageType.Error})
     } finally {
       setLoading(false);
     }
@@ -78,57 +93,68 @@ export default function SignUpPage() {
     e.preventDefault();
     cleanErrorMessages();
     validateForm();
-    
   }
 
   return (
-    <div className={styles["signin"]}>
-      <header>
-        <h2>Cadastro</h2>
-        <p>Preencha os dados para se cadastrar no site</p>
-      </header>
-      <form action="" onSubmit={handleSignUp}>
-        <label htmlFor="username">
-          Nome
-          <input
-            type="text"
-            className={inputStyles["input"]}
-            onChange={(e) => setUserName(e.currentTarget.value)}
-            defaultValue={username}
-          />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input
-            type="text"
-            className={inputStyles["input"]}
-            onChange={(e) => setUserEmail(e.target.value)}
-            defaultValue={userEmail}
-          />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            type="password"
-            className={inputStyles["input"]}
-            onChange={(e) => setUserPassword(e.target.value)}
-            defaultValue={userPassword}
-          />
-        </label>
-        {formMessages.length ? (
-          <ErrorBox>
-            {formMessages.map((d) => {
-              return <p className="mb-2 last:mb-0 text-xs" key={d.message + Math.random()}>{d.message}</p>;
-            })}
-          </ErrorBox>
-        ) : (
-          ""
-        )}
-        <Button disabled={loading}>{loading ? 'Loading...' : 'Cadastrar'}</Button>
-      </form>
-      <p className={styles["signup-link"]}>
-        Já tem uma conta? <Link href="/signin">Faça login</Link>
-      </p>
-    </div>
+    <>
+      <div className={styles["signin"]}>
+        <header>
+          <h2>Cadastro</h2>
+          <p>Preencha os dados para se cadastrar no site</p>
+        </header>
+        <form action="" onSubmit={handleSignUp}>
+          <label htmlFor="username">
+            Nome
+            <input
+              type="text"
+              className={inputStyles["input"]}
+              onChange={(e) => setUserName(e.currentTarget.value)}
+              defaultValue={username}
+            />
+          </label>
+          <label htmlFor="email">
+            Email
+            <input
+              type="text"
+              className={inputStyles["input"]}
+              onChange={(e) => setUserEmail(e.target.value)}
+              defaultValue={userEmail}
+            />
+          </label>
+          <label htmlFor="password">
+            Senha
+            <input
+              type="password"
+              className={inputStyles["input"]}
+              onChange={(e) => setUserPassword(e.target.value)}
+              defaultValue={userPassword}
+            />
+          </label>
+          {formMessages.length ? (
+            <ErrorBox>
+              {formMessages.map((d) => {
+                return (
+                  <p
+                    className="mb-2 last:mb-0 text-xs"
+                    key={d.message + Math.random()}
+                  >
+                    {d.message}
+                  </p>
+                );
+              })}
+            </ErrorBox>
+          ) : (
+            ""
+          )}
+          <Button disabled={loading}>
+            {loading ? "Loading..." : "Cadastrar"}
+          </Button>
+        </form>
+        <p className={styles["signup-link"]}>
+          Já tem uma conta? <Link href="/signin">Faça login</Link>
+        </p>
+      </div>
+      {messaageFeedback.message && <Toast messageType={messaageFeedback.type}>{messaageFeedback.message}</Toast>}
+    </>
   );
 }
