@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./userSlice";
+import loaderReducer from "./loadersSlice";
 
 export const store = configureStore({
   reducer: {
-    userReducer
+    userReducer,
+    loaderReducer
   },
   devTools: process.env.NODE_ENV !== "production",
 });
