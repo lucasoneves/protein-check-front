@@ -2,7 +2,7 @@
 import { getUserData } from "@/lib/api";
 import Cookies from "js-cookie";
 import { setUserInfo } from "@/app/store/userSlice";
-import { useAppDispatch } from "@/app/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import CardDailyList from "@/components/CardDailyList";
 import CardHighlights from "@/components/CardHighlights";
 import { useEffect, useState } from "react";
@@ -11,21 +11,24 @@ import { useRouter } from "next/navigation";
 import Head from "next/head";
 import { MessageFeedBackTypes, MessageType } from "@/lib/types";
 import { Card } from "../Card";
+import getDataUser from "@/lib/user";
 
 export default function HomeComponent() {
   const dispatch = useAppDispatch();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const userInfo = useAppSelector((state) => state.userReducer.userInfo);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({
     type: MessageType.Null,
     message: "",
   });
   const router = useRouter();
 
-  async function getDataUser() {
+  async function getDataUserInfo() {
     try {
-      const response = await getUserData(Cookies.get("authToken")!);
-      const user = await response.data[0];
-      dispatch(setUserInfo(user));
+      setIsLoading(true);
+      const response = await getDataUser();
+      const user = await response.data
+      dispatch(setUserInfo(user[0]));
       setMessageFeedback({
         type: MessageType.Success,
         message: "",
@@ -38,20 +41,22 @@ export default function HomeComponent() {
       });
       console.error("Error trying to load user info", error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false);  
     }
   }
 
   useEffect(() => {
-    getDataUser();
-  }, []);
+    if (!userInfo.id) {
+      getDataUserInfo();
+    }
+  }, [userInfo.id]);
 
   return (
     <>
       {isLoading ? (
         <Loading />
       ) : (
-        messageFeedback.type !== MessageType.Error ? (
+        messageFeedback.type !== MessageType.Error || userInfo.id ? (
           <main>
             <Head>
               <title>My page Title</title>
