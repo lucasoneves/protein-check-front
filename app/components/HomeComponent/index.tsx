@@ -1,17 +1,17 @@
 "use client";
-import { getUserData } from "@/lib/api";
+import { getUserData } from "@/app/lib/api";
 import Cookies from "js-cookie";
 import { setUserInfo } from "@/app/store/userSlice";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
-import CardDailyList from "@/components/CardDailyList";
-import CardHighlights from "@/components/CardHighlights";
+import CardDailyList from "../CardDailyList";
+import CardHighlights from "../CardHighlights";
 import { useEffect, useState } from "react";
-import Loading from "@/components/Loading";
+import Loading from "../Loading";
 import { useRouter } from "next/navigation";
 import Head from "next/head";
-import { MessageFeedBackTypes, MessageType } from "@/lib/types";
+import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import { Card } from "../Card";
-import getDataUser from "@/lib/user";
+import getDataUser from "@/app/lib/user";
 
 export default function HomeComponent() {
   const dispatch = useAppDispatch();
@@ -72,7 +72,7 @@ export default function HomeComponent() {
               </div>
             </div>
           </main>
-        ) : <Card className="error mt-10 text-sm text-center"><p>Houve um erro ao carregar a página. Tente novamente.</p></Card>
+        ) : ''
       )}
     </>
   );

@@ -3,15 +3,15 @@ import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyle from "@/components/Input/Input.module.scss";
 import Link from "next/link";
 import Cookies from 'js-cookie'
-import { Button } from "@/components/Button/index";
+import { Button } from "@/app/components/Button/index";
 import { useState } from "react";
-import { ErrorTypes, MessageType } from "@/lib/types";
-import { validateEmail } from "@/lib/validateEmail";
-import { signin } from '@/lib/api';
+import { ErrorTypes, MessageType } from "@/app/lib/types";
+import { validateEmail } from "@/app/lib/validateEmail";
+import { signin } from '@/app/lib/api';
 import { useRouter } from 'next/navigation'
-import { labelEmailNotValid, labelEmailRequired, labelFormErrorLogin, labelPasswordRequired } from "@/lib/text";
-import { Toast } from "@/components/Toast";
-import Loading from "@/components/Loading";
+import { labelEmailNotValid, labelEmailRequired, labelFormErrorLogin, labelPasswordRequired } from "@/app/lib/text";
+import { Toast } from "@/app/components/Toast";
+import Loading from "@/app/components/Loading";
 
 
 export default function SignInPage() {

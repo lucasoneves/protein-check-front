@@ -1,22 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { Button } from "@/components/Button/index";
+import { Button } from "@/app/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
-import inputStyles from "@/components/Input/Input.module.scss";
+import inputStyles from "@/app/components/Input/Input.module.scss";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
-import { ErrorTypes, MessageFeedBackTypes, MessageType } from "@/lib/types";
+import { ErrorTypes, MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import {
   labelEmailRequired,
   labelPasswordRequired,
   labelUsernameRequired,
   labelEmailNotValid,
-} from "@/lib/text";
-import { ErrorBox } from "@/components/ErrorBox";
-import { validateEmail } from "@/lib/validateEmail";
-import { register } from "@/lib/api";
+} from "@/app/lib/text";
+import { ErrorBox } from "@/app/components/ErrorBox";
+import { validateEmail } from "@/app/lib/validateEmail";
+import { register } from "@/app/lib/api";
 import { useRouter } from "next/navigation";
-import { Toast } from "@/components/Toast";
+import { Toast } from "@/app/components/Toast";
 
 export default function SignUpPage() {
   const [userEmail, setUserEmail] = useState("");

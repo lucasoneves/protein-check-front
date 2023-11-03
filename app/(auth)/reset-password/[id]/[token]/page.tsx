@@ -1,15 +1,15 @@
 "use client";
 
-import { Button } from "@/components/Button";
-import Loading from "@/components/Loading";
+import { Button } from "@/app/components/Button";
+import Loading from "@/app/components/Loading";
 import inputStyle from "@/components/Input/Input.module.scss";
 import styles from "@/app/(auth)/Auth.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
-import { resetPassword } from "@/lib/api";
+import { resetPassword } from "@/app/lib/api";
 import { useRouter } from "next/navigation";
-import { MessageFeedBackTypes, MessageType } from "@/lib/types";
-import { Toast } from "@/components/Toast";
+import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
+import { Toast } from "@/app/components/Toast";
 
 type ParamsType = {
   params: {

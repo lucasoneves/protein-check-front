@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { FormEvent, useEffect, useState } from "react";
-import { createProteinTarget, updateProteinTarget } from "@/lib/proteinTarget";
-import { MessageFeedBackTypes, MessageType } from "@/lib/types";
+import { createProteinTarget, updateProteinTarget } from "@/app/lib/proteinTarget";
+import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import { setNewTargetDaily } from "@/app/store/userSlice";
 import styles from "./FormProteinTarget.module.scss";
 import Loading from "../Loading";

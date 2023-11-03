@@ -3,11 +3,11 @@ import { FormEvent } from "react";
 import styles from "./AddProtein.module.scss";
 import { VscAdd } from "react-icons/vsc";
 import { useState } from "react";
-import { addProteinRequest } from "@/lib/addProtein";
+import { addProteinRequest } from "@/app/lib/addProtein";
 import Loading from "../Loading";
 import { useAppDispatch } from "@/app/store/hooks";
 import { setProteinAdded } from "@/app/store/userSlice";
-import { MessageFeedBackTypes, MessageType } from "@/lib/types";
+import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import { Toast } from "../Toast";
 
 export default function AddProtein() {
