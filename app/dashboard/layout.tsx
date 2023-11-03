@@ -4,10 +4,10 @@ import "../assets/reset.css";
 import "../assets/globals.css";
 import "../assets/pallete.css";
 import styles from "./Layout.module.scss";
-import Header from "@/components/Header";
-import AddProtein from "@/components/AddProtein";
-import { Container } from "@/components/Container";
-import MenuNav from "@/components/MenuNav/page";
+import Header from "@/app/components/Header";
+import AddProtein from "@/app/components/AddProtein";
+import { Container } from "@/app/components/Container";
+import MenuNav from "@/app/components/MenuNav/page";
 import { useAppSelector } from "../store/hooks";
 
 export default function DashboardLayout({

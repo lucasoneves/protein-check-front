@@ -1,4 +1,4 @@
-import UpdateTargetComponent from "@/components/UpdateTargetComponent";
+import UpdateTargetComponent from "@/app/components/UpdateTargetComponent";
 
 
 export default function UpdateTarget() {

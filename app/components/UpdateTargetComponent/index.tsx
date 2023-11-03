@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./UpdateTargetComponent.module.scss";
 import Loading from "../Loading";
 import { Toast } from "../Toast";
-import { MessageFeedBackTypes, MessageType } from "@/lib/types";
+import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import FormProteinTarget from "../FormProteinTarget";
 
 export default function UpdateTargetComponent() {

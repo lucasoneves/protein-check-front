@@ -1,4 +1,4 @@
-import { Container } from "@/components/Container";
+import { Container } from "@/app/components/Container";
 // import styles from '@/app/(auth)/Auth.module.scss';
 import { Providers } from "./store/provider";
 

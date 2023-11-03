@@ -1,16 +1,16 @@
 "use client";
-import { Button } from "@/components/Button/index";
+import { Button } from "@/app/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
-import inputStyles from "@/components/Input/Input.module.scss";
+import inputStyles from "@/app/components/Input/Input.module.scss";
 import Link from "next/link";
-import { validateEmail } from "@/lib/validateEmail";
+import { validateEmail } from "@/app/lib/validateEmail";
 import { useState } from "react";
-import { MessageFeedBackTypes, MessageType } from "@/lib/types";
-import { labelEmailNotValid } from "@/lib/text";
-import { recoverPassword } from "@/lib/api";
+import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
+import { labelEmailNotValid } from "@/app/lib/text";
+import { recoverPassword } from "@/app/lib/api";
 import Cookies from "js-cookie";
-import Loading from "@/components/Loading";
-import { Toast } from "@/components/Toast";
+import Loading from "@/app/components/Loading";
+import { Toast } from "@/app/components/Toast";
 import { VscVerified } from "react-icons/vsc";
 
 export default function RecoverPassword() {

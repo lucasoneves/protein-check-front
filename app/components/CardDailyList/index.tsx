@@ -10,12 +10,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { MessageFeedBackTypes, MessageType, ProteinIten } from "@/lib/types";
+import { MessageFeedBackTypes, MessageType, ProteinIten } from "@/app/lib/types";
 import EditProtein from "../EditItem";
 import CardDaily from "../CardDaily";
 import CardEmpty from "../CardEmpty";
 import { Toast } from "../Toast";
-import { deleteProteinRequest, editProteinRequest } from "@/lib/addProtein";
+import { deleteProteinRequest, editProteinRequest } from "@/app/lib/addProtein";
 import Loading from "../Loading";
 import { setProteinDeleted, setProteinEdited } from "@/app/store/userSlice";
 import { useAppDispatch } from "@/app/store/hooks";
