@@ -1,13 +1,16 @@
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { fetcher } from "./fetcher";
 
-const local = "http://localhost:3001"
-const dev = "https://protein-tracker-api.onrender.com"
+const ENDPOINT_PROD = "http://localhost:3001"
+const ENDPOINT_DEV = "https://protein-tracker-api.onrender.com"
+const ENDPOINT = process.env.API_URL === 'development' ? ENDPOINT_DEV : ENDPOINT_PROD
+
+console.log(process.env.API_URL)
 
 export const register = async (user: object) => {
   try {
     return fetcher({
-      url: `${local}/signup`,
+      url: `${ENDPOINT}/signup`,
       method: "POST",
       body: user,
       json: true,
@@ -22,7 +25,7 @@ export const signin = async (user: object) => {
 
   try {
     return fetcher({
-      url: `${local}/signin`,
+      url: `${ENDPOINT}/signin`,
       method: "POST",
       body: user,
       json: true,
@@ -37,7 +40,7 @@ export const signin = async (user: object) => {
 export const recoverPassword = async (email: string, token: string) => {
   try {
     return fetcher({
-      url: `${local}/forgot-password`,
+      url: `${ENDPOINT}/forgot-password`,
       method: "POST",
       body: { email },
       json: true,
@@ -52,7 +55,7 @@ export const recoverPassword = async (email: string, token: string) => {
 export const resetPassword = async (password: string, id: string, token: string) => {
   try {
     return fetcher({
-      url: `${local}/reset-password/${id}/${token}`,
+      url: `${ENDPOINT}/reset-password/${id}/${token}`,
       method: "POST",
       body: { password },
       json: true
@@ -66,7 +69,7 @@ export const resetPassword = async (password: string, id: string, token: string)
 export const getUserData = async (tokenId: string) => {
   try {
     return fetcher({
-      url: `${local}/api/proteinamount`,
+      url: `${ENDPOINT}/api/proteinamount`,
       method: "GET",
       body: null,
       json: true,
