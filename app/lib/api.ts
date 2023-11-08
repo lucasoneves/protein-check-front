@@ -3,9 +3,9 @@ import { fetcher } from "./fetcher";
 
 const ENDPOINT_PROD = "http://localhost:3001"
 const ENDPOINT_DEV = "https://protein-tracker-api.onrender.com"
-const ENDPOINT = process.env.NODE_ENV === 'development' ? ENDPOINT_DEV : ENDPOINT_PROD
+const ENDPOINT = process.env.DEVELOPMENT === 'development' ? ENDPOINT_DEV : ENDPOINT_PROD
 
-console.log(process.env.NODE_ENV)
+console.log(process.env.DEVELOPMENT)
 
 export const register = async (user: object) => {
   try {
