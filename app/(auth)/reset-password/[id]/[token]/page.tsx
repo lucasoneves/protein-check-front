@@ -2,7 +2,7 @@
 
 import { Button } from "@/app/components/Button";
 import Loading from "@/app/components/Loading";
-import inputStyle from "@/components/Input/Input.module.scss";
+import inputStyle from "@/app/components/Input/Input.module.scss";
 import styles from "@/app/(auth)/Auth.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";

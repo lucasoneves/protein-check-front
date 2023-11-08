@@ -1,6 +1,6 @@
 "use client";
 import styles from "@/app/(auth)/Auth.module.scss";
-import inputStyle from "@/components/Input/Input.module.scss";
+import inputStyle from "@/app/components/Input/Input.module.scss";
 import Link from "next/link";
 import Cookies from 'js-cookie'
 import { Button } from "@/app/components/Button/index";
