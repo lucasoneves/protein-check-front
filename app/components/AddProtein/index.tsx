@@ -3,7 +3,7 @@ import { FormEvent } from "react";
 import styles from "./AddProtein.module.scss";
 import { VscAdd } from "react-icons/vsc";
 import { useState } from "react";
-import { addProteinRequest } from "@/app/lib/addProtein";
+import { addProteinAmount } from "@/app/lib/api";
 import Loading from "../Loading";
 import { useAppDispatch } from "@/app/store/hooks";
 import { setProteinAdded } from "@/app/store/userSlice";
@@ -21,7 +21,7 @@ export default function AddProtein() {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await addProteinRequest(amount);
+      const { data } = await addProteinAmount(amount);
       dispatch(setProteinAdded(data.proteinAmount))
       setMessageFeedback({message: "Protein added", type: MessageType.Success})
     } catch (error) {

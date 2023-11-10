@@ -15,7 +15,7 @@ import EditProtein from "../EditItem";
 import CardDaily from "../CardDaily";
 import CardEmpty from "../CardEmpty";
 import { Toast } from "../Toast";
-import { deleteProteinRequest, editProteinRequest } from "@/app/lib/addProtein";
+import { deleteProteinAmount, editProteinAmount } from "@/app/lib/api";
 import Loading from "../Loading";
 import { setProteinDeleted, setProteinEdited } from "@/app/store/userSlice";
 import { useAppDispatch } from "@/app/store/hooks";
@@ -83,7 +83,7 @@ export default function CardDailyList() {
   async function confirmDeleteCard() {
     try {
       setLoading(true);
-      const data = await deleteProteinRequest(itemToDelete.id);
+      const data = await deleteProteinAmount(itemToDelete.id);
       dispatch(setProteinDeleted(itemToDelete));
       return data;
     } catch (error) {
@@ -104,7 +104,7 @@ export default function CardDailyList() {
   async function saveEditedProtein() {
     try {
       setLoading(true);
-      const req = await editProteinRequest(
+      const req = await editProteinAmount(
         itemEditting.quantity,
         itemEditting.id
       );

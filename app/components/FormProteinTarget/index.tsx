@@ -1,11 +1,13 @@
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import { FormEvent, useEffect, useState } from "react";
-import { createProteinTarget, updateProteinTarget } from "@/app/lib/proteinTarget";
+import { updateProteinTarget } from "@/app/lib/api";
+import { createProteinTarget } from "@/app/lib/api";
 import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import { setNewTargetDaily } from "@/app/store/userSlice";
 import styles from "./FormProteinTarget.module.scss";
 import Loading from "../Loading";
 import { Toast } from "../Toast";
+import Cookies from "js-cookie";
 
 export default function FormProteinTarget() {
   const [newTarget, setNewTarget] = useState<number>(0);
@@ -28,6 +30,7 @@ export default function FormProteinTarget() {
   const dispatch = useAppDispatch();
   async function handleUpdateProteinTarget(e: FormEvent) {
     e.preventDefault();
+    const token = Cookies.get('authToken')
 
     if (newTarget > 0) {
       try {
