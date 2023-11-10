@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const ENDPOINT_PROD = "http://localhost:3001"
 const ENDPOINT_DEV = "https://protein-tracker-api.onrender.com"
-const ENDPOINT = process.env.NODE_ENV === 'production' ? ENDPOINT_PROD: ENDPOINT_DEV
+const ENDPOINT = process.env.NODE_ENV === 'test' ? ENDPOINT_PROD: ENDPOINT_DEV
 
 console.log(process.env.NODE_ENV)
 
