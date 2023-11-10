@@ -3,10 +3,7 @@ import Cookies from "js-cookie";
 
 const ENDPOINT_PROD = "http://localhost:3001"
 const ENDPOINT_DEV = "https://protein-tracker-api.onrender.com"
-const ENDPOINT = process.env.NODE_ENV === 'test' ? ENDPOINT_PROD: ENDPOINT_DEV
-
-console.log(process.env.NODE_ENV)
-
+const ENDPOINT = process.env.NODE_ENV !== 'production' ? ENDPOINT_DEV : ENDPOINT_PROD
 const AUTH_TOKEN = Cookies.get('authToken')
 
 export const register = async (user: object) => {
