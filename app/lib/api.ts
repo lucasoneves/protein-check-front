@@ -7,6 +7,8 @@ const ENDPOINT = process.env.NODE_ENV === 'development' || process.env.VERCEL_EN
 
 const AUTH_TOKEN = Cookies.get('authToken')
 
+console.log(process.env.NODE_ENV)
+
 export const register = async (user: object) => {
   try {
     return fetcher({
