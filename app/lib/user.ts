@@ -3,7 +3,7 @@ import { getUserData } from "./api";
 
 export default async function getDataUser() {
   try {
-    const response = await getUserData(Cookies.get("authToken")!);
+    const response = await getUserData();
     const user = await response
     return user;
   } catch (error) {

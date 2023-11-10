@@ -1,11 +1,11 @@
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { fetcher } from "./fetcher";
+import Cookies from "js-cookie";
 
 const ENDPOINT_PROD = "http://localhost:3001"
 const ENDPOINT_DEV = "https://protein-tracker-api.onrender.com"
-const ENDPOINT = process.env.API_URL === 'development' ? ENDPOINT_DEV : ENDPOINT_PROD
+const ENDPOINT = process.env.NODE_ENV === 'development' ? ENDPOINT_DEV : ENDPOINT_PROD
 
-console.log(process.env.API_URL)
+const AUTH_TOKEN = Cookies.get('authToken')
 
 export const register = async (user: object) => {
   try {
@@ -65,18 +65,102 @@ export const resetPassword = async (password: string, id: string, token: string)
     console.error("Reset_password =>", error);
   }
 }
-
-export const getUserData = async (tokenId: string) => {
+/* =========== GET User Data =========== */
+export const getUserData = async () => {
   try {
     return fetcher({
       url: `${ENDPOINT}/api/proteinamount`,
       method: "GET",
       body: null,
       json: true,
-      token: tokenId
+      token: AUTH_TOKEN
     });
   } catch (error) {
     // Handle the error (e.g., show an error message)
     console.error("getUserData =>", error);
   }
 }
+
+/* =========== CREATE Protein Target =========== */
+
+export const createProteinTarget = async (target: Number) => {
+  try {
+    return fetcher({
+      url: `${ENDPOINT}/api/proteintarget/`,
+      method: "POST",
+      body: {
+        target
+      },
+      json: true,
+      token: AUTH_TOKEN
+    });
+  } catch (error) {
+    console.error('ADD_PROTEIN =>', error)
+  }
+};
+
+/* =========== UPDATE Protein Target =========== */
+export const updateProteinTarget = async (target: Number, id: String) => {
+  try {
+    return fetcher({
+      url: `${ENDPOINT}/api/proteintarget/${id}`,
+      method: "PUT",
+      body: {
+        target
+      },
+      json: true,
+      token: Cookies.get("authToken")!
+    });
+  } catch (error) {
+    console.error('UPDATE_PROTEIN =>', error)
+  }
+};
+
+/* =========== ADD Protein Amount =========== */
+export const addProteinAmount = async (quantity: Number) => {
+  try {
+    return fetcher({
+      url: `${ENDPOINT}/api/proteinamount`,
+      method: "POST",
+      body: {
+        quantity
+      },
+      json: true,
+      token: AUTH_TOKEN
+    });
+  } catch (error) {
+    console.error('ADD_PROTEIN =>', error)
+  }
+};
+
+/* =========== EDIT Protein Amount =========== */
+export const editProteinAmount = async (quantity: Number, id: string | null) => {
+  try {
+    return fetcher({
+      url: `${ENDPOINT}/api/proteinamount/${id}`,
+      method: "PUT",
+      body: {
+        quantity
+      },
+      json: true,
+      token: AUTH_TOKEN!
+    });
+  } catch (error) {
+    console.error('ADD_PROTEIN =>', error)
+  }
+};
+
+/* =========== DELETE Protein Amount =========== */
+export const deleteProteinAmount = async (id: string | null) => {
+  try {
+    return fetcher({
+      url: `${ENDPOINT}/api/proteinamount/${id}`,
+      method: "DELETE",
+      body: null,
+      json: true,
+      token: AUTH_TOKEN!
+    });
+  } catch (error) {
+    console.error('ADD_PROTEIN =>', error)
+  }
+};
