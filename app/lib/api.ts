@@ -1,9 +1,9 @@
 import { fetcher } from "./fetcher";
 import Cookies from "js-cookie";
 
-const ENDPOINT_PROD = "http://localhost:3001"
-const ENDPOINT_DEV = "https://protein-tracker-api.onrender.com"
-const ENDPOINT = process.env.NODE_ENV !== 'production' ? ENDPOINT_DEV : ENDPOINT_PROD
+const API_DEV = "http://localhost:3001"
+const API_PROD = "https://protein-tracker-api.onrender.com"
+const ENDPOINT = process.env.NODE_ENV === 'development' ? API_DEV : API_PROD
 const AUTH_TOKEN = Cookies.get('authToken')
 
 export const register = async (user: object) => {
