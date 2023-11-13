@@ -1,15 +1,14 @@
 import { fetcher } from "./fetcher";
 import Cookies from "js-cookie";
 
-const API_DEV = "http://localhost:3001"
-const API_PROD = "https://protein-tracker-api.onrender.com"
-const ENDPOINT = process.env.NODE_ENV === 'development' ? API_DEV : API_PROD
+
+const API_ENDPOINT = "https://protein-tracker-api.onrender.com"
 const AUTH_TOKEN = Cookies.get('authToken')
 
 export const register = async (user: object) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/signup`,
+      url: `${API_ENDPOINT}/signup`,
       method: "POST",
       body: user,
       json: true,
@@ -24,7 +23,7 @@ export const signin = async (user: object) => {
 
   try {
     return fetcher({
-      url: `${ENDPOINT}/signin`,
+      url: `${API_ENDPOINT}/signin`,
       method: "POST",
       body: user,
       json: true,
@@ -39,7 +38,7 @@ export const signin = async (user: object) => {
 export const recoverPassword = async (email: string, token: string) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/forgot-password`,
+      url: `${API_ENDPOINT}/forgot-password`,
       method: "POST",
       body: { email },
       json: true,
@@ -54,7 +53,7 @@ export const recoverPassword = async (email: string, token: string) => {
 export const resetPassword = async (password: string, id: string, token: string) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/reset-password/${id}/${token}`,
+      url: `${API_ENDPOINT}/reset-password/${id}/${token}`,
       method: "POST",
       body: { password },
       json: true
@@ -68,7 +67,7 @@ export const resetPassword = async (password: string, id: string, token: string)
 export const getUserData = async () => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/api/proteinamount`,
+      url: `${API_ENDPOINT}/api/proteinamount`,
       method: "GET",
       body: null,
       json: true,
@@ -85,7 +84,7 @@ export const getUserData = async () => {
 export const createProteinTarget = async (target: Number) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/api/proteintarget/`,
+      url: `${API_ENDPOINT}/api/proteintarget/`,
       method: "POST",
       body: {
         target
@@ -102,7 +101,7 @@ export const createProteinTarget = async (target: Number) => {
 export const updateProteinTarget = async (target: Number, id: String) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/api/proteintarget/${id}`,
+      url: `${API_ENDPOINT}/api/proteintarget/${id}`,
       method: "PUT",
       body: {
         target
@@ -119,7 +118,7 @@ export const updateProteinTarget = async (target: Number, id: String) => {
 export const addProteinAmount = async (quantity: Number) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/api/proteinamount`,
+      url: `${API_ENDPOINT}/api/proteinamount`,
       method: "POST",
       body: {
         quantity
@@ -136,7 +135,7 @@ export const addProteinAmount = async (quantity: Number) => {
 export const editProteinAmount = async (quantity: Number, id: string | null) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/api/proteinamount/${id}`,
+      url: `${API_ENDPOINT}/api/proteinamount/${id}`,
       method: "PUT",
       body: {
         quantity
@@ -153,7 +152,7 @@ export const editProteinAmount = async (quantity: Number, id: string | null) => 
 export const deleteProteinAmount = async (id: string | null) => {
   try {
     return fetcher({
-      url: `${ENDPOINT}/api/proteinamount/${id}`,
+      url: `${API_ENDPOINT}/api/proteinamount/${id}`,
       method: "DELETE",
       body: null,
       json: true,
