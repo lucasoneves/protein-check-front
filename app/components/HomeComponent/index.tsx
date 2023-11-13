@@ -1,17 +1,13 @@
 "use client";
-import { getUserData } from "@/app/lib/api";
-import Cookies from "js-cookie";
 import { setUserInfo } from "@/app/store/userSlice";
 import { useAppDispatch, useAppSelector } from "@/app/store/hooks";
 import CardDailyList from "../CardDailyList";
 import CardHighlights from "../CardHighlights";
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
-import { useRouter } from "next/navigation";
 import Head from "next/head";
 import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
-import { Card } from "../Card";
-import getDataUser from "@/app/lib/user";
+import { getUserData } from "@/app/lib/api";
 
 export default function HomeComponent() {
   const dispatch = useAppDispatch();
@@ -21,18 +17,20 @@ export default function HomeComponent() {
     type: MessageType.Null,
     message: "",
   });
-  const router = useRouter();
+  useEffect(() => {
+    getDataUserInfo();
+  }, []);
 
   async function getDataUserInfo() {
     try {
       setIsLoading(true);
-      const response = await getDataUser();
+      const response = await getUserData();
       const user = await response.data
-      dispatch(setUserInfo(user[0]));
       setMessageFeedback({
         type: MessageType.Success,
         message: "",
       });
+      dispatch(setUserInfo(user[0]));
       return response;
     } catch (error) {
       setMessageFeedback({
@@ -45,11 +43,7 @@ export default function HomeComponent() {
     }
   }
 
-  useEffect(() => {
-    if (!userInfo.id) {
-      getDataUserInfo();
-    }
-  }, [userInfo.id]);
+
 
   return (
     <>

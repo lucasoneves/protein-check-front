@@ -4,7 +4,7 @@ import { REHYDRATE } from 'redux-persist'
 export interface UserState {
   userInfo: {
     email: string;
-    id: string;
+    id: string | null;
     proteinAmount: [{ quantity: number, createdAt: string, id: string, belongsToId: string }];
     proteinTarget: [{ id: string, target: number, createdAt: string, belongingTo: string }];
     username: string;
@@ -14,7 +14,7 @@ export interface UserState {
 export const initialState: UserState = {
   userInfo: {
     email: '',
-    id: '',
+    id: null,
     proteinAmount: [{ quantity: 0, createdAt: '', id: '', belongsToId: '' }],
     proteinTarget: [{ id: '', target: 0, createdAt: '', belongingTo: '' }],
     username: ''
