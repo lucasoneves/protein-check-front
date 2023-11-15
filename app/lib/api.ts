@@ -124,7 +124,7 @@ export const addProteinAmount = async (quantity: Number) => {
         quantity
       },
       json: true,
-      token: AUTH_TOKEN
+      token: Cookies.get("authToken")!
     });
   } catch (error) {
     console.error('ADD_PROTEIN =>', error)
