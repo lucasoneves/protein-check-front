@@ -64,14 +64,14 @@ export const resetPassword = async (password: string, id: string, token: string)
   }
 }
 /* =========== GET User Data =========== */
-export const getUserData = async () => {
+export const getUserData = async (token: string | undefined) => {
   try {
     return fetcher({
       url: `${API_ENDPOINT}/api/proteinamount`,
       method: "GET",
       body: null,
       json: true,
-      token: AUTH_TOKEN
+      token
     });
   } catch (error) {
     // Handle the error (e.g., show an error message)
