@@ -8,11 +8,12 @@ import Loading from "../Loading";
 import Head from "next/head";
 import { MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import { getUserData } from "@/app/lib/api";
+import Cookies from "js-cookie";
 
 export default function HomeComponent() {
   const dispatch = useAppDispatch();
   const userInfo = useAppSelector((state) => state.userReducer.userInfo);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [messageFeedback, setMessageFeedback] = useState<MessageFeedBackTypes>({
     type: MessageType.Null,
     message: "",
@@ -24,7 +25,7 @@ export default function HomeComponent() {
   async function getDataUserInfo() {
     try {
       setIsLoading(true);
-      const response = await getUserData();
+      const response = await getUserData(Cookies.get('authToken'));
       const user = await response.data
       setMessageFeedback({
         type: MessageType.Success,
