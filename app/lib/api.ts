@@ -3,7 +3,6 @@ import Cookies from "js-cookie";
 
 
 const API_ENDPOINT = "https://protein-tracker-api.onrender.com"
-const AUTH_TOKEN = Cookies.get('authToken')
 
 export const register = async (user: object) => {
   try {
@@ -90,7 +89,7 @@ export const createProteinTarget = async (target: Number) => {
         target
       },
       json: true,
-      token: AUTH_TOKEN
+      token: Cookies.get('authToken')
     });
   } catch (error) {
     console.error('ADD_PROTEIN =>', error)
@@ -107,7 +106,7 @@ export const updateProteinTarget = async (target: Number, id: String) => {
         target
       },
       json: true,
-      token: Cookies.get("authToken")!
+      token: Cookies.get("authToken")
     });
   } catch (error) {
     console.error('UPDATE_PROTEIN =>', error)
@@ -124,7 +123,7 @@ export const addProteinAmount = async (quantity: Number) => {
         quantity
       },
       json: true,
-      token: Cookies.get("authToken")!
+      token: Cookies.get("authToken")
     });
   } catch (error) {
     console.error('ADD_PROTEIN =>', error)
@@ -141,7 +140,7 @@ export const editProteinAmount = async (quantity: Number, id: string | null) => 
         quantity
       },
       json: true,
-      token: AUTH_TOKEN!
+      token: Cookies.get('authToken')
     });
   } catch (error) {
     console.error('ADD_PROTEIN =>', error)
@@ -156,7 +155,7 @@ export const deleteProteinAmount = async (id: string | null) => {
       method: "DELETE",
       body: null,
       json: true,
-      token: AUTH_TOKEN!
+      token: Cookies.get('authToken')
     });
   } catch (error) {
     console.error('ADD_PROTEIN =>', error)
