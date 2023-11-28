@@ -83,7 +83,7 @@ export default function FormProteinTarget() {
             onChange={(e) => setNewTarget(+e.target.value)}
             placeholder="Digite a quantidade de proteína"
             id="protein"
-            className="w-full outline-0 p-4 bg-transparent rounded-lg text-real-black"
+            className="w-full p-4 bg-transparent rounded-lg text-real-black"
             defaultValue={
               currentTarget.length ? currentTarget[0].target : newTarget
             }
