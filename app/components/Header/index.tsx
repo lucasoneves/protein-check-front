@@ -14,8 +14,8 @@ export default function Header({ userName }: { userName: string }) {
   function showUserSettings() {
     setSettings(!settings);
   }
-  function handleKeyboardSettings(e) {
-    if (e.keyCode === 13) {
+  function handleKeyboardSettings(e: React.KeyboardEvent) {
+    if (Number(e.altKey) === 13) {
       showUserSettings()
       return false;
     }
