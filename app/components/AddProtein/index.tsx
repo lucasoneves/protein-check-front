@@ -50,12 +50,13 @@ export default function AddProtein() {
       >
         <input
           maxLength={3}
-          className={`w-full border-0 outline-0 p-4 rounded-lg flex-1 ${styles["input"]}`}
+          className={`w-full border-0 p-4 rounded-lg flex-1 ${styles["input"]}`}
           placeholder="Add protein"
           onChange={changedProteinAmount}
           value={+amount || ''}
         ></input>
         <button
+          aria-label="Adicionar Proteína"
           className={`${styles["button"]} p-4 rounded-full flex items-center justify-center text-lg`}
         >
           {loading ? <Loading small/> : <VscAdd />}

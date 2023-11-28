@@ -45,6 +45,7 @@ export default function CardHighlights() {
           <span className="text-2xl block font-bold">{proteinTarget()}</span>
         </h3>
         <Link
+          aria-label="Editar meta de proteína"
           href={`/dashboard/update-target`}
           className="absolute top-3 block right-3"
         >

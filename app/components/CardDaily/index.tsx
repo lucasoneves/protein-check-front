@@ -21,11 +21,11 @@ function CardDaily({
         <span>{createdAt}</span>
         <span className="flex-1">{amount}g</span>
         <div className="actions flex gap-4 text-xl">
-          <button onClick={handleEdit} className="flex gap-1">
+          <button onClick={handleEdit} className="flex gap-1" aria-label="Editar">
             {" "}
             <MdOutlineModeEditOutline />{" "}
           </button>
-          <button onClick={handleDelete} className="flex gap-1">
+          <button onClick={handleDelete} className="flex gap-1" aria-label="Deletar">
             {" "}
             <MdDeleteOutline />{" "}
           </button>

@@ -3,11 +3,7 @@ import styles from "@/app/dashboard/home/Home.module.scss";
 import { useAppSelector } from "@/app/store/hooks";
 import {
   ChangeEvent,
-  EventHandler,
   FormEvent,
-  ReactEventHandler,
-  SyntheticEvent,
-  useEffect,
   useState,
 } from "react";
 import { MessageFeedBackTypes, MessageType, ProteinIten } from "@/app/lib/types";
