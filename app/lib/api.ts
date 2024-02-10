@@ -2,7 +2,7 @@ import { fetcher } from "./fetcher";
 import Cookies from "js-cookie";
 
 
-const API_ENDPOINT = process.env.NODE_ENV === 'development' && "https://protein-tracker-api.onrender.com";
+const API_ENDPOINT = "https://protein-tracker-api.onrender.com";
 
 export const register = async (user: object) => {
   try {
