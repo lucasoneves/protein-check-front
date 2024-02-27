@@ -17,6 +17,8 @@ import { validateEmail } from "@/app/lib/validateEmail";
 import { register } from "@/app/lib/api";
 import { useRouter } from "next/navigation";
 import { Toast } from "@/app/components/Toast";
+import { FcGoogle } from "react-icons/fc";
+
 
 export default function SignUpPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -148,6 +150,7 @@ export default function SignUpPage() {
           <Button disabled={loading}>
             {loading ? "Loading..." : "Cadastrar"}
           </Button>
+          <Button isFlat><FcGoogle width={100} height={100} /> Cadastrar com Google </Button>
         </form>
         <p className={styles["signup-link"]}>
           Já tem uma conta? <Link href="/signin">Faça login</Link>

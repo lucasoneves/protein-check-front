@@ -20,5 +20,14 @@
 
 .is-flat {
   background-color: lightgray;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
   color: black;
+
+  svg {
+    width: 20px;
+    height: fit-content;
+  }
 }
