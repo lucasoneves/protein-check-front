@@ -103,7 +103,7 @@ export default function SignUpPage() {
           <h2>Cadastro</h2>
           <p>Preencha os dados para se cadastrar no site</p>
         </header>
-        <form action="" onSubmit={handleSignUp}>
+        <form action="" onSubmit={handleSignUp} className="mb-3">
           <label htmlFor="username">
             Nome
             <input
@@ -150,8 +150,8 @@ export default function SignUpPage() {
           <Button disabled={loading}>
             {loading ? "Loading..." : "Cadastrar"}
           </Button>
-          <Button isFlat><FcGoogle width={100} height={100} /> Cadastrar com Google </Button>
         </form>
+        <Button isFlat classes={`w-full`}><FcGoogle width={100} height={100} /> Cadastrar com Google </Button>
         <p className={styles["signup-link"]}>
           Já tem uma conta? <Link href="/signin">Faça login</Link>
         </p>
