@@ -18,6 +18,7 @@ import { register } from "@/app/lib/api";
 import { useRouter } from "next/navigation";
 import { Toast } from "@/app/components/Toast";
 import { FcGoogle } from "react-icons/fc";
+import Head from "next/head";
 
 export default function SignUpPage() {
   const [userEmail, setUserEmail] = useState("");
@@ -102,8 +103,16 @@ export default function SignUpPage() {
     validateForm();
   }
 
+  function getLoginGoogleInfo() {
+    console.log('hey')
+  }
+
   return (
     <>
+      <Head>
+        <title>First Post</title>
+        <script src="https://connect.facebook.net/en_US/sdk.js" async />
+      </Head>
       <div className={styles["signin"]}>
         <header>
           <h2>Cadastro</h2>
@@ -157,24 +166,22 @@ export default function SignUpPage() {
             {loading ? "Loading..." : "Cadastrar"}
           </Button>
         </form>
-        <div
-          id="g_id_onload"
-          data-client_id="256526142796-s4pl16jv8cqqont1415a39fnt9f0o114.apps.googleusercontent.com"
-          data-context="signin"
-          data-ux_mode="popup"
-          data-callback="getLoginGoogleInfo"
-          data-auto_prompt="false"
-        ></div>
+        <div id="g_id_onload"
+     data-client_id="256526142796-s4pl16jv8cqqont1415a39fnt9f0o114.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-login_uri="http://localhost:3000/signup"
+     data-auto_prompt="false">
+</div>
 
-        <div
-          className="g_id_signin"
-          data-type="standard"
-          data-shape="rectangular"
-          data-theme="outline"
-          data-text="signin_with"
-          data-size="large"
-          data-logo_alignment="left"
-        ></div>
+<div className="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
         <p className={styles["signup-link"]}>
           Já tem uma conta? <Link href="/signin">Faça login</Link>
         </p>
