@@ -2,8 +2,8 @@ import { fetcher } from "./fetcher";
 import Cookies from "js-cookie";
 
 
-const API_ENDPOINT = process.env.API_URL === "http://localhost:3000" ? "http://localhost:3001" : "https://protein-tracker-api.onrender.com";
-console.log("API ENDPOINT", process.env.API_URL)
+const API_ENDPOINT = process.env.LOCAL;
+// console.log("API ENDPOINT", process.env.API_URL)
 
 export const register = async (user: object) => {
   try {
