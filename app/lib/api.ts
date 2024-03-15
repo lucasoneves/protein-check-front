@@ -2,7 +2,7 @@ import { fetcher } from "./fetcher";
 import Cookies from "js-cookie";
 
 
-const API_ENDPOINT = process.env.LOCAL;
+const API_ENDPOINT = process.env.SERVER;
 // console.log("API ENDPOINT", process.env.API_URL)
 
 export const register = async (user: object) => {
