@@ -2,7 +2,8 @@ import { fetcher } from "./fetcher";
 import Cookies from "js-cookie";
 
 
-const API_ENDPOINT = "https://protein-tracker-api.onrender.com";
+const API_ENDPOINT = process.env.API_URL === "http://localhost:3000" ? "http://localhost:3001" : "https://protein-tracker-api.onrender.com";
+console.log("API ENDPOINT", process.env.API_URL)
 
 export const register = async (user: object) => {
   try {
@@ -10,7 +11,6 @@ export const register = async (user: object) => {
       url: `${API_ENDPOINT}/signup`,
       method: "POST",
       body: user,
-      json: true,
       token: null
     });
   } catch (error) {
@@ -25,7 +25,6 @@ export const signin = async (user: object) => {
       url: `${API_ENDPOINT}/signin`,
       method: "POST",
       body: user,
-      json: true,
       token: null
     });
   } catch (error) {
@@ -40,7 +39,6 @@ export const recoverPassword = async (email: string, token: string) => {
       url: `${API_ENDPOINT}/forgot-password`,
       method: "POST",
       body: { email },
-      json: true,
       token: token
     });
   } catch (error) {
@@ -55,7 +53,6 @@ export const resetPassword = async (password: string, id: string, token: string)
       url: `${API_ENDPOINT}/reset-password/${id}/${token}`,
       method: "POST",
       body: { password },
-      json: true
     });
   } catch (error) {
     // Handle the error (e.g., show an error message)
@@ -69,7 +66,6 @@ export const getUserData = async (token: string | undefined) => {
       url: `${API_ENDPOINT}/api/proteinamount`,
       method: "GET",
       body: null,
-      json: true,
       token
     });
   } catch (error) {
@@ -88,7 +84,6 @@ export const createProteinTarget = async (target: Number) => {
       body: {
         target
       },
-      json: true,
       token: Cookies.get('authToken')
     });
   } catch (error) {
@@ -105,7 +100,6 @@ export const updateProteinTarget = async (target: Number, id: String) => {
       body: {
         target
       },
-      json: true,
       token: Cookies.get("authToken")
     });
   } catch (error) {
@@ -122,7 +116,6 @@ export const addProteinAmount = async (quantity: Number) => {
       body: {
         quantity
       },
-      json: true,
       token: Cookies.get("authToken")
     });
   } catch (error) {
@@ -139,7 +132,6 @@ export const editProteinAmount = async (quantity: Number, id: string | null) => 
       body: {
         quantity
       },
-      json: true,
       token: Cookies.get('authToken')
     });
   } catch (error) {
@@ -154,7 +146,6 @@ export const deleteProteinAmount = async (id: string | null) => {
       url: `${API_ENDPOINT}/api/proteinamount/${id}`,
       method: "DELETE",
       body: null,
-      json: true,
       token: Cookies.get('authToken')
     });
   } catch (error) {

@@ -4,7 +4,7 @@ import { Button } from "@/app/components/Button/index";
 import styles from "@/app/(auth)/Auth.module.scss";
 import inputStyles from "@/app/components/Input/Input.module.scss";
 import Link from "next/link";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { ErrorTypes, MessageFeedBackTypes, MessageType } from "@/app/lib/types";
 import {
   labelEmailRequired,
@@ -23,8 +23,8 @@ export default function SignUpPage() {
   const [userPassword, setUserPassword] = useState("");
   const [username, setUserName] = useState("");
   const [formMessages, setFormMessages] = useState<ErrorTypes[]>([]);
-  const [messaageFeedback, setMessaageFeedback] = useState<MessageFeedBackTypes>({ message: '', type: MessageType.Null})
-  const [formValid, setFormValid] = useState(false);
+  const [messaageFeedback, setMessaageFeedback] =
+    useState<MessageFeedBackTypes>({ message: "", type: MessageType.Null });
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -32,8 +32,8 @@ export default function SignUpPage() {
   function cleanErrorMessages() {
     setFormMessages([]);
     setTimeout(() => {
-      setMessaageFeedback({message: '', type: MessageType.Null})
-    }, 3000)
+      setMessaageFeedback({ message: "", type: MessageType.Null });
+    }, 3000);
   }
 
   async function handleSetFormError(text: string, field: string) {
@@ -75,14 +75,20 @@ export default function SignUpPage() {
         password: userPassword,
       });
       if (response && response.data.status === 204) {
-        setMessaageFeedback({ message: "Usuário ou e-mail já cadastrado", type: MessageType.Error})
+        setMessaageFeedback({
+          message: "Usuário ou e-mail já cadastrado",
+          type: MessageType.Error,
+        });
         return;
       }
       router.push("/signin");
       return response;
     } catch (error) {
       console.error(error);
-      setMessaageFeedback({ message: "Houve um erro ao tentar cadastrar. Tente novamente!", type: MessageType.Error})
+      setMessaageFeedback({
+        message: "Houve um erro ao tentar cadastrar. Tente novamente!",
+        type: MessageType.Error,
+      });
     } finally {
       setLoading(false);
     }
@@ -101,7 +107,7 @@ export default function SignUpPage() {
           <h2>Cadastro</h2>
           <p>Preencha os dados para se cadastrar no site</p>
         </header>
-        <form action="" onSubmit={handleSignUp}>
+        <form action="" onSubmit={handleSignUp} className="mb-3">
           <label htmlFor="username">
             Nome
             <input
@@ -149,11 +155,33 @@ export default function SignUpPage() {
             {loading ? "Loading..." : "Cadastrar"}
           </Button>
         </form>
+        <div
+          id="g_id_onload"
+          data-client_id="256526142796-s4pl16jv8cqqont1415a39fnt9f0o114.apps.googleusercontent.com"
+          data-context="signin"
+          data-ux_mode="popup"
+          data-login_uri="http://localhost:3000/signup"
+          data-auto_prompt="false"
+        ></div>
+
+        <div
+          className="g_id_signin"
+          data-type="standard"
+          data-shape="rectangular"
+          data-theme="outline"
+          data-text="signin_with"
+          data-size="large"
+          data-logo_alignment="left"
+        ></div>
         <p className={styles["signup-link"]}>
           Já tem uma conta? <Link href="/signin">Faça login</Link>
         </p>
       </div>
-      {messaageFeedback.message && <Toast messageType={messaageFeedback.type}>{messaageFeedback.message}</Toast>}
+      {messaageFeedback.message && (
+        <Toast messageType={messaageFeedback.type}>
+          {messaageFeedback.message}
+        </Toast>
+      )}
     </>
   );
 }
